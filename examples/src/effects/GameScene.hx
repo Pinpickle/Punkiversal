@@ -1,7 +1,7 @@
 package effects;
 
 import com.punkiversal.Entity;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.graphics.Backdrop;
 import com.punkiversal.graphics.Emitter;
 import com.punkiversal.graphics.atlas.TextureAtlas;
@@ -60,7 +60,7 @@ class GameScene extends DemoScene
 
 			if (Input.mousePressed)
 			{
-				smoke.setColor("exhaust", HXP.rand(16777215), HXP.rand(16777215));
+				smoke.setColor("exhaust", PV.rand(16777215), PV.rand(16777215));
 			}
 		}
 		super.update();

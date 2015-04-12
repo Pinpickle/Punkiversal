@@ -1,5 +1,5 @@
 import com.punkiversal.Engine;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 
 class Main extends Engine
 {
@@ -11,10 +11,10 @@ class Main extends Engine
 		if (flash.system.Capabilities.isDebugger)
 	#end
 		{
-			HXP.console.enable();
+			PV.console.enable();
 		}
 #end
-		HXP.scene = new effects.GameScene();
+		PV.scene = new effects.GameScene();
 	}
 
 	public static function main() { new Main(); }

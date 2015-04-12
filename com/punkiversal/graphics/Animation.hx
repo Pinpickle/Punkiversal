@@ -17,7 +17,7 @@ class Animation
 	{
         this.name       = name;
         this.frames     = frames;
-        this.frameRate  = (frameRate == 0 ? HXP.assignedFrameRate : frameRate);
+        this.frameRate  = (frameRate == 0 ? PV.assignedFrameRate : frameRate);
         this.loop       = loop;
         this.frameCount = frames.length;
         this.parent 	= parent;

@@ -102,7 +102,7 @@ class AtlasData
 		}
 		else if(create)
 		{
-			var bitmap:BitmapData = HXP.getBitmap(name);
+			var bitmap:BitmapData = PV.getBitmap(name);
 			if (bitmap != null)
 			{
 				data = new AtlasData(bitmap, name);
@@ -125,7 +125,7 @@ class AtlasData
 	 */
 	public function reload(bd:BitmapData):Void
 	{
-		HXP.overwriteBitmapCache(_name, bd);
+		PV.overwriteBitmapCache(_name, bd);
 		_tilesheet = new Tilesheet(bd);
 		// recreate tile indexes
 		for (r in _rects)
@@ -165,7 +165,7 @@ class AtlasData
 	 */
 	public function destroy():Void
 	{
-		HXP.removeBitmap(_name);
+		PV.removeBitmap(_name);
 		_dataPool.remove(_name);
 	}
 
@@ -311,8 +311,8 @@ class AtlasData
 		}
 		else
 		{
-			var cos = Math.cos(-angle * HXP.RAD);
-			var sin = Math.sin(-angle * HXP.RAD);
+			var cos = Math.cos(-angle * PV.RAD);
+			var sin = Math.sin(-angle * PV.RAD);
 			_data[_dataIndex++] = cos * scaleX; // m00
 			_data[_dataIndex++] = -sin * scaleY; // m10
 			_data[_dataIndex++] = sin * scaleX; // m01

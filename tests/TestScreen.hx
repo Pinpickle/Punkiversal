@@ -1,5 +1,5 @@
 import com.punkiversal.Engine;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Scene;
 
 class TestScreen extends haxe.unit.TestCase
@@ -7,34 +7,34 @@ class TestScreen extends haxe.unit.TestCase
 
 	public override function setup()
 	{
-		HXP.windowWidth = 320;
-		HXP.windowHeight = 480;
-		var engine = new Engine(HXP.windowWidth, HXP.windowHeight);
+		PV.windowWidth = 320;
+		PV.windowHeight = 480;
+		var engine = new Engine(PV.windowWidth, PV.windowHeight);
 	}
 
 	public function testDefaultSize()
 	{
-		assertEquals(320, HXP.width);
-		assertEquals(480, HXP.height);
-		assertEquals(1.0, HXP.screen.scale);
+		assertEquals(320, PV.width);
+		assertEquals(480, PV.height);
+		assertEquals(1.0, PV.screen.scale);
 	}
 
 	public function testScale()
 	{
-		HXP.screen.scale = 2;
-		HXP.resize(HXP.windowWidth, HXP.windowHeight);
-		assertEquals(160, HXP.width);
-		assertEquals(240, HXP.height);
-		assertEquals(320, HXP.windowWidth);
-		assertEquals(480, HXP.windowHeight);
+		PV.screen.scale = 2;
+		PV.resize(PV.windowWidth, PV.windowHeight);
+		assertEquals(160, PV.width);
+		assertEquals(240, PV.height);
+		assertEquals(320, PV.windowWidth);
+		assertEquals(480, PV.windowHeight);
 	}
 
 	public function testScaleXY()
 	{
-		HXP.screen.scaleX = 2;
-		HXP.screen.scaleY = 3;
-		HXP.resize(HXP.windowWidth, HXP.windowHeight);
-		assertEquals(160, HXP.width);
-		assertEquals(160, HXP.height);
+		PV.screen.scaleX = 2;
+		PV.screen.scaleY = 3;
+		PV.resize(PV.windowWidth, PV.windowHeight);
+		assertEquals(160, PV.width);
+		assertEquals(160, PV.height);
 	}
 }

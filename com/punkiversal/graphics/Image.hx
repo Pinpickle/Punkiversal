@@ -7,7 +7,7 @@ import com.punkiversal.graphics.atlas.AtlasRegion;
 import com.punkiversal.masks.Polygon;
 import com.punkiversal.math.Vector;
 import com.punkiversal.Graphic;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.RenderMode;
 
 import flash.display.Bitmap;
@@ -125,13 +125,13 @@ class Image extends Graphic
 		_flipped = false;
 		_color = 0x00FFFFFF;
 		_red = _green = _blue = 1;
-		_matrix = HXP.matrix;
+		_matrix = PV.matrix;
 	}
 
 	/** @private Creates the buffer. */
 	private function createBuffer()
 	{
-		_buffer = HXP.createBitmap(Std.int(_sourceRect.width), Std.int(_sourceRect.height), true);
+		_buffer = PV.createBitmap(Std.int(_sourceRect.width), Std.int(_sourceRect.height), true);
 		_bufferRect = _buffer.rect;
 		_bitmap.bitmapData = _buffer;
 	}
@@ -163,7 +163,7 @@ class Image extends Graphic
 				_matrix.d = sy;
 				_matrix.tx = -originX * sx;
 				_matrix.ty = -originY * sy;
-				if (angle != 0) _matrix.rotate(angle * HXP.RAD);
+				if (angle != 0) _matrix.rotate(angle * PV.RAD);
 				_matrix.tx += originX + _point.x;
 				_matrix.ty += originY + _point.y;
 				target.draw(_bitmap, _matrix, null, blend, null, _bitmap.smoothing);
@@ -176,8 +176,8 @@ class Image extends Graphic
 	{
 		var sx = scale * scaleX,
 			sy = scale * scaleY,
-			fsx = HXP.screen.fullScaleX,
-			fsy = HXP.screen.fullScaleY;
+			fsx = PV.screen.fullScaleX,
+			fsy = PV.screen.fullScaleY;
 
 		// determine drawing location
 		_point.x = point.x + x - originX - camera.x * scrollX;
@@ -210,7 +210,7 @@ class Image extends Graphic
 				sx *= -1;
 			}
 
-			var angle = angle * HXP.RAD;
+			var angle = angle * PV.RAD;
 			var cos = Math.cos(angle);
 			var sin = Math.sin(angle);
 			var a = sx * cos * fsx;
@@ -237,9 +237,9 @@ class Image extends Graphic
 		if (width == 0 || height == 0)
 			throw "Illegal rect, sizes cannot be 0.";
 
-		var source:BitmapData = HXP.createBitmap(width, height, true, 0xFFFFFFFF);
+		var source:BitmapData = PV.createBitmap(width, height, true, 0xFFFFFFFF);
 		var image:Image;
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		if (PV.renderMode == RenderMode.HARDWARE)
 		{
 			image = new Image(Atlas.loadImageAsRegion(source));
 		}
@@ -266,14 +266,14 @@ class Image extends Graphic
 		if (radius == 0)
 			throw "Illegal circle, radius cannot be 0.";
 
-		HXP.sprite.graphics.clear();
-		HXP.sprite.graphics.beginFill(0xFFFFFF);
-		HXP.sprite.graphics.drawCircle(radius, radius, radius);
-		var data:BitmapData = HXP.createBitmap(radius * 2, radius * 2, true, 0);
-		data.draw(HXP.sprite);
+		PV.sprite.graphics.clear();
+		PV.sprite.graphics.beginFill(0xFFFFFF);
+		PV.sprite.graphics.drawCircle(radius, radius, radius);
+		var data:BitmapData = PV.createBitmap(radius * 2, radius * 2, true, 0);
+		data.draw(PV.sprite);
 
 		var image:Image;
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		if (PV.renderMode == RenderMode.HARDWARE)
 		{
 			image = new Image(Atlas.loadImageAsRegion(data));
 		}
@@ -299,7 +299,7 @@ class Image extends Graphic
 	 */
 	public static function createPolygon(polygon:Polygon, color:Int = 0xFFFFFF, alpha:Float = 1, fill:Bool = true, thick:Int = 1):Image
 	{
-		var graphics:Graphics = HXP.sprite.graphics;
+		var graphics:Graphics = PV.sprite.graphics;
 		var points:Array<Vector> = polygon.points;
 
 		var minX:Float;
@@ -312,8 +312,8 @@ class Image extends Graphic
 
 		polygon.angle = 0;	// set temporarily angle to 0 so we can sync with image angle later
 
-		minX = minY = HXP.NUMBER_MAX_VALUE;
-		maxX = maxY = -HXP.NUMBER_MAX_VALUE;
+		minX = minY = PV.NUMBER_MAX_VALUE;
+		maxX = maxY = -PV.NUMBER_MAX_VALUE;
 
 		// find polygon bounds
 		for (p in points)
@@ -343,14 +343,14 @@ class Image extends Graphic
 		}
 		graphics.endFill();
 
-		HXP.matrix.identity();
-		HXP.matrix.translate( -minX, -minY);
+		PV.matrix.identity();
+		PV.matrix.translate( -minX, -minY);
 
-		var data:BitmapData = HXP.createBitmap(w, h, true, 0);
-		data.draw(HXP.sprite, HXP.matrix);
+		var data:BitmapData = PV.createBitmap(w, h, true, 0);
+		data.draw(PV.sprite, PV.matrix);
 
 		var image:Image;
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		if (PV.renderMode == RenderMode.HARDWARE)
 		{
 			image = new Image(Atlas.loadImageAsRegion(data));
 		}
@@ -378,7 +378,7 @@ class Image extends Graphic
 	{
 		if (_source == null) return;
 		if (clearBefore) _buffer.fillRect(_bufferRect, 0);
-		_buffer.copyPixels(_source, _sourceRect, HXP.zero);
+		_buffer.copyPixels(_source, _sourceRect, PV.zero);
 		if (_tint != null) _buffer.colorTransform(_bufferRect, _tint);
 	}
 
@@ -433,9 +433,9 @@ class Image extends Graphic
 		if (_color == value) return value;
 		_color = value;
 		// save individual color channel values
-		_red = HXP.getRed(_color) / 255;
-		_green = HXP.getGreen(_color) / 255;
-		_blue = HXP.getBlue(_color) / 255;
+		_red = PV.getRed(_color) / 255;
+		_green = PV.getGreen(_color) / 255;
+		_blue = PV.getBlue(_color) / 255;
 		if (blit) updateColorTransform();
 		return _color;
 	}
@@ -463,12 +463,12 @@ class Image extends Graphic
 			}
 			else
 			{
-				_source = HXP.createBitmap(_source.width, _source.height, true);
+				_source = PV.createBitmap(_source.width, _source.height, true);
 				_flips.set(temp, _source);
-				HXP.matrix.identity();
-				HXP.matrix.a = -1;
-				HXP.matrix.tx = _source.width;
-				_source.draw(temp, HXP.matrix);
+				PV.matrix.identity();
+				PV.matrix.a = -1;
+				PV.matrix.tx = _source.width;
+				_source.draw(temp, PV.matrix);
 			}
 			_flip = temp;
 			updateBuffer();

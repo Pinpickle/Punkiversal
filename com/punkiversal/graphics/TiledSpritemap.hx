@@ -3,7 +3,7 @@ package com.punkiversal.graphics;
 import flash.display.BitmapData;
 import flash.display.Graphics;
 import flash.geom.Point;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Graphic;
 import com.punkiversal.graphics.Spritemap;
 
@@ -23,7 +23,7 @@ class TiledSpritemap extends Spritemap
 	 */
 	public function new(source:TileType, frameWidth:Int = 0, frameHeight:Int = 0, width:Int = 0, height:Int = 0, callbackFunc:Void -> Void = null)
 	{
-		_graphics = HXP.sprite.graphics;
+		_graphics = PV.sprite.graphics;
 		_offsetX = _offsetY = 0;
 		_imageWidth = width;
 		_imageHeight = height;
@@ -35,7 +35,7 @@ class TiledSpritemap extends Spritemap
 	{
 		if (_imageWidth == 0) _imageWidth = Std.int(_sourceRect.width);
 		if (_imageHeight == 0) _imageHeight = Std.int(_sourceRect.height);
-		_buffer = HXP.createBitmap(_imageWidth, _imageHeight, true);
+		_buffer = PV.createBitmap(_imageWidth, _imageHeight, true);
 		_bufferRect = _buffer.rect;
 	}
 
@@ -56,17 +56,17 @@ class TiledSpritemap extends Spritemap
 				yy:Int = Std.int(_offsetY) % _imageHeight;
 			if (xx >= 0) xx -= _imageWidth;
 			if (yy >= 0) yy -= _imageHeight;
-			HXP.point.x = xx;
-			HXP.point.y = yy;
-			while (HXP.point.y < _imageHeight)
+			PV.point.x = xx;
+			PV.point.y = yy;
+			while (PV.point.y < _imageHeight)
 			{
-				while (HXP.point.x < _imageWidth)
+				while (PV.point.x < _imageWidth)
 				{
-					_buffer.copyPixels(_source, _sourceRect, HXP.point);
-					HXP.point.x += _sourceRect.width;
+					_buffer.copyPixels(_source, _sourceRect, PV.point);
+					PV.point.x += _sourceRect.width;
 				}
-				HXP.point.x = xx;
-				HXP.point.y += _sourceRect.height;
+				PV.point.x = xx;
+				PV.point.y += _sourceRect.height;
 			}
 
 			// tint the buffer
@@ -88,8 +88,8 @@ class TiledSpritemap extends Spritemap
 
 		// TODO: properly handle flipped tiled spritemaps
 		if (_flipped) _point.x += _sourceRect.width;
-		var fsx = HXP.screen.fullScaleX,
-			fsy = HXP.screen.fullScaleY,
+		var fsx = PV.screen.fullScaleX,
+			fsy = PV.screen.fullScaleY,
 			sx = fsx * scale * scaleX,
 			sy = fsy * scale * scaleY,
 			x = 0.0, y = 0.0;

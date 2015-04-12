@@ -4,7 +4,7 @@ import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import com.punkiversal.Graphic;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.graphics.atlas.TileAtlas;
 import com.punkiversal.masks.Grid;
 
@@ -30,7 +30,7 @@ class Tilemap extends Canvas
 	 */
 	public function new(tileset:TileType, width:Int, height:Int, tileWidth:Int, tileHeight:Int, ?tileSpacingWidth:Int=0, ?tileSpacingHeight:Int=0)
 	{
-		_rect = HXP.rect;
+		_rect = PV.rect;
 
 		// set some tilemap information
 		_width = width - (width % tileWidth);
@@ -431,8 +431,8 @@ class Tilemap extends Canvas
 		_point.x = point.x + x - camera.x * scrollX;
 		_point.y = point.y + y - camera.y * scrollY;
 
-		var scalex:Float = HXP.screen.fullScaleX,
-			scaley:Float = HXP.screen.fullScaleY,
+		var scalex:Float = PV.screen.fullScaleX,
+			scaley:Float = PV.screen.fullScaleY,
 			tw:Int = Std.int(tileWidth),
 			th:Int = Std.int(tileHeight);
 
@@ -442,8 +442,8 @@ class Tilemap extends Canvas
 		// determine start and end tiles to draw (optimization)
 		var startx = Math.floor( -_point.x / (tw * scx)),
 			starty = Math.floor( -_point.y / (th * scy)),
-			destx = startx + 1 + Math.ceil(HXP.width / (tw * scx)),
-			desty = starty + 1 + Math.ceil(HXP.height / (th * scy));
+			destx = startx + 1 + Math.ceil(PV.width / (tw * scx)),
+			desty = starty + 1 + Math.ceil(PV.height / (th * scy));
 
 		// nothing will render if we're completely off screen
 		if (startx > _columns || starty > _rows || destx < 0 || desty < 0)

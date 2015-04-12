@@ -4,7 +4,7 @@ import com.punkiversal.Mask;
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 
 /**
  * A bitmap mask used for pixel-perfect collision.
@@ -30,16 +30,16 @@ class Pixelmask extends Hitbox
 		if (Std.is(source, BitmapData))
 			_data = source;
 		else
-			_data = HXP.getBitmap(source);
+			_data = PV.getBitmap(source);
 
 		if (_data == null)
 			throw "Invalid Pixelmask source image.";
 
 		threshold = 1;
 
-		_rect = HXP.rect;
-		_point = HXP.point;
-		_point2 = HXP.point2;
+		_rect = PV.rect;
+		_point = PV.point;
+		_point2 = PV.point2;
 
 		// set mask properties
 		_width = data.width;

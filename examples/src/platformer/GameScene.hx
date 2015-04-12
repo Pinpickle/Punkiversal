@@ -1,6 +1,6 @@
 package platformer;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Entity;
 import com.punkiversal.graphics.atlas.TextureAtlas;
 import com.punkiversal.graphics.Tilemap;
@@ -87,9 +87,9 @@ class GameScene extends DemoScene
 	public override function update()
 	{
 		backdrop.x += 1;
-		backdrop.y += 2 * HXP.sign(player.gravity.y);
-		HXP.camera.x = player.x - HXP.halfWidth;
-		HXP.camera.y = player.y - HXP.halfHeight;
+		backdrop.y += 2 * PV.sign(player.gravity.y);
+		PV.camera.x = player.x - PV.halfWidth;
+		PV.camera.y = player.y - PV.halfHeight;
 		super.update();
 	}
 

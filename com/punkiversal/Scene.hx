@@ -122,7 +122,7 @@ class Scene extends Tweener
 	 */
 	public function render()
 	{
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		if (PV.renderMode == RenderMode.HARDWARE)
 			AtlasData.startScene(this);
 
 		// render the entities in order of depth
@@ -135,7 +135,7 @@ class Scene extends Tweener
 			}
 		}
 
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		if (PV.renderMode == RenderMode.HARDWARE)
 			AtlasData.active = null; // forces the last active atlas to flush
 	}
 
@@ -145,7 +145,7 @@ class Scene extends Tweener
 	public var mouseX(get, null):Int;
 	private inline function get_mouseX():Int
 	{
-		return Std.int(HXP.screen.mouseX + camera.x);
+		return Std.int(PV.screen.mouseX + camera.x);
 	}
 
 	/**
@@ -154,7 +154,7 @@ class Scene extends Tweener
 	public var mouseY(get, null):Int;
 	private inline function get_mouseY():Int
 	{
-		return Std.int(HXP.screen.mouseY + camera.y);
+		return Std.int(PV.screen.mouseY + camera.y);
 	}
 
 	/**
@@ -455,7 +455,7 @@ class Scene extends Tweener
 	{
 		// If the distance is less than precision, do the short sweep.
 		if (precision < 1) precision = 1;
-		if (HXP.distance(fromX, fromY, toX, toY) < precision)
+		if (PV.distance(fromX, fromY, toX, toY) < precision)
 		{
 			if (p != null)
 			{
@@ -609,7 +609,7 @@ class Scene extends Tweener
 		radius *= radius;//Square it to avoid the square root
 		for (e in _types.get(type))
 		{
-			if (HXP.distanceSquared(circleX, circleY, e.x, e.y) < radius) into[n ++] = cast e;
+			if (PV.distanceSquared(circleX, circleY, e.x, e.y) < radius) into[n ++] = cast e;
 		}
 	}
 
@@ -643,7 +643,7 @@ class Scene extends Tweener
 	public function nearestToRect(type:String, x:Float, y:Float, width:Float, height:Float):Entity
 	{
 		if (!_types.exists(type)) return null;
-		var nearDist:Float = HXP.NUMBER_MAX_VALUE,
+		var nearDist:Float = PV.NUMBER_MAX_VALUE,
 			near:Entity = null, dist:Float;
 		for (e in _types.get(type))
 		{
@@ -668,7 +668,7 @@ class Scene extends Tweener
 	{
 		if (!_types.exists(type)) return null;
 		if (useHitboxes) return nearestToRect(type, e.x - e.originX, e.y - e.originY, e.width, e.height);
-		var nearDist:Float = HXP.NUMBER_MAX_VALUE,
+		var nearDist:Float = PV.NUMBER_MAX_VALUE,
 			near:Entity = null,
 			dist:Float,
 			x:Float = e.x - e.originX,
@@ -698,7 +698,7 @@ class Scene extends Tweener
 	{
 		if (!_types.exists(type)) return null;
 		if (useHitboxes) return nearestToRect(type, e.x - e.originX, e.y - e.originY, e.width, e.height);
-		var nearDist:Float = HXP.NUMBER_MAX_VALUE,
+		var nearDist:Float = PV.NUMBER_MAX_VALUE,
 			near:Entity = null,
 			dist:Float,
 			x:Float = e.x - e.originX,
@@ -726,7 +726,7 @@ class Scene extends Tweener
 	public function nearestToPoint(type:String, x:Float, y:Float, useHitboxes:Bool = false):Entity
 	{
 		if (!_types.exists(type)) return null;
-		var nearDist:Float = HXP.NUMBER_MAX_VALUE,
+		var nearDist:Float = PV.NUMBER_MAX_VALUE,
 			near:Entity = null,
 			dist:Float;
 		if (useHitboxes)
@@ -985,7 +985,7 @@ class Scene extends Tweener
 			{
 				if (e._scene == null)
 				{
-					var idx = HXP.indexOf(_add, e);
+					var idx = PV.indexOf(_add, e);
 					if (idx >= 0) _add.splice(idx, 1);
 					continue;
 				}
@@ -999,7 +999,7 @@ class Scene extends Tweener
 				if (e._name != "") unregisterName(e);
 				if (e.autoClear && e.hasTween) e.clearTweens();
 			}
-			HXP.clear(_remove);
+			PV.clear(_remove);
 		}
 
 		// add entities
@@ -1015,7 +1015,7 @@ class Scene extends Tweener
 				if (e._name != "") registerName(e);
 				e.added();
 			}
-			HXP.clear(_add);
+			PV.clear(_add);
 		}
 
 		// recycle entities
@@ -1029,7 +1029,7 @@ class Scene extends Tweener
 				e._recycleNext = _recycled.get(e._class);
 				_recycled.set(e._class, e);
 			}
-			HXP.clear(_recycle);
+			PV.clear(_recycle);
 		}
 	}
 
@@ -1070,7 +1070,7 @@ class Scene extends Tweener
 			}
 			else
 			{
-				HXP.insertSortedKey(_layerList, e._layer, layerSort);
+				PV.insertSortedKey(_layerList, e._layer, layerSort);
 			}
 		}
 		list.add(e);
@@ -1150,11 +1150,11 @@ class Scene extends Tweener
 		}
 		if (x1 > x2)
 		{
-			if (y1 > y2) return HXP.distanceSquared((x2 + w2), (y2 + h2), x1, y1);
-			return HXP.distanceSquared(x2 + w2, y2, x1, y1 + h1);
+			if (y1 > y2) return PV.distanceSquared((x2 + w2), (y2 + h2), x1, y1);
+			return PV.distanceSquared(x2 + w2, y2, x1, y1 + h1);
 		}
-		if (y1 > y2) return HXP.distanceSquared(x2, y2 + h2, x1 + w1, y1);
-		return HXP.distanceSquared(x2, y2, x1 + w1, y1 + h1);
+		if (y1 > y2) return PV.distanceSquared(x2, y2 + h2, x1 + w1, y1);
+		return PV.distanceSquared(x2, y2, x1 + w1, y1 + h1);
 	}
 
 	/** @private Calculates the squared distance between a rectangle and a point. */
@@ -1173,11 +1173,11 @@ class Scene extends Tweener
 		}
 		if (px > rx)
 		{
-			if (py > ry) return HXP.distanceSquared(rx + rw, ry + rh, px, py);
-			return HXP.distanceSquared(rx + rw, ry, px, py);
+			if (py > ry) return PV.distanceSquared(rx + rw, ry + rh, px, py);
+			return PV.distanceSquared(rx + rw, ry, px, py);
 		}
-		if (py > ry) return HXP.distanceSquared(rx, ry + rh, px, py);
-		return HXP.distanceSquared(rx, ry, px, py);
+		if (py > ry) return PV.distanceSquared(rx, ry + rh, px, py);
+		return PV.distanceSquared(rx, ry, px, py);
 	}
 
 	// Adding and removal.

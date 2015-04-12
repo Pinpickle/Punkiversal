@@ -9,7 +9,7 @@ class TestCollide extends haxe.unit.TestCase
 	override public function setup()
 	{
 		var engine = new Engine(640, 480);
-		HXP.scene = scene = new Scene();
+		PV.scene = scene = new Scene();
 
 		hitbox = scene.addMask(new Hitbox(20, 20, -10, -10), "box");
 		circle = scene.addMask(new Circle(10), "circle");

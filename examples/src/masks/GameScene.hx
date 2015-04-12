@@ -1,6 +1,6 @@
 package masks;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Entity;
 import com.punkiversal.graphics.Image;
 import com.punkiversal.graphics.Tilemap;
@@ -63,7 +63,7 @@ class GameScene extends DemoScene
 
 		// create a tilemap using a single color
 		var tilemap:Tilemap = new Tilemap(
-				HXP.createBitmap(tileWidth, tileHeight, false, color),
+				PV.createBitmap(tileWidth, tileHeight, false, color),
 				width * tileWidth, height * tileHeight,
 				tileWidth, tileHeight);
 		var grid:Grid = new Grid(width * tileWidth, height * tileHeight, tileWidth, tileHeight);

@@ -3,7 +3,7 @@ package com.punkiversal.graphics;
 import com.punkiversal.Graphic;
 import com.punkiversal.graphics.atlas.Atlas;
 import com.punkiversal.graphics.atlas.AtlasRegion;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.RenderMode;
 
 import flash.display.BitmapData;
@@ -40,14 +40,14 @@ class Backdrop extends Canvas
 		_repeatX = repeatX;
 		_repeatY = repeatY;
 
-		super(HXP.width * (repeatX ? 1 : 0) + _textWidth, HXP.height * (repeatY ? 1 : 0) + _textHeight);
+		super(PV.width * (repeatX ? 1 : 0) + _textWidth, PV.height * (repeatY ? 1 : 0) + _textHeight);
 
 		if (blit)
 		{
-			HXP.rect.x = HXP.rect.y = 0;
-			HXP.rect.width = _width;
-			HXP.rect.height = _height;
-			fillTexture(HXP.rect, _source);
+			PV.rect.x = PV.rect.y = 0;
+			PV.rect.width = _width;
+			PV.rect.height = _height;
+			fillTexture(PV.rect, _source);
 		}
 	}
 
@@ -72,7 +72,7 @@ class Backdrop extends Canvas
 
 		_x = x; _y = y;
 		x = y = 0;
-		super.render(target, _point, HXP.zero);
+		super.render(target, _point, PV.zero);
 		x = _x; y = _y;
 	}
 
@@ -96,8 +96,8 @@ class Backdrop extends Canvas
 
 		var sx = scale * scaleX,
 			sy = scale * scaleY,
-			fsx = HXP.screen.fullScaleX,
-			fsy = HXP.screen.fullScaleY,
+			fsx = PV.screen.fullScaleX,
+			fsy = PV.screen.fullScaleY,
 			px:Int = Std.int(_point.x * fsx), py:Int = Std.int(_point.y * fsy);
 
 		var y:Int = 0;

@@ -58,29 +58,29 @@ class Engine extends Sprite
 		super();
 
 		// global game properties
-		HXP.bounds = new Rectangle(0, 0, width, height);
-		HXP.assignedFrameRate = frameRate;
-		HXP.fixed = fixed;
+		PV.bounds = new Rectangle(0, 0, width, height);
+		PV.assignedFrameRate = frameRate;
+		PV.fixed = fixed;
 
 		// global game objects
-		HXP.engine = this;
-		HXP.width = width;
-		HXP.height = height;
+		PV.engine = this;
+		PV.width = width;
+		PV.height = height;
 
 		if (renderMode != null)
 		{
-			HXP.renderMode = renderMode;
+			PV.renderMode = renderMode;
 		}
 		else
 		{
-			HXP.renderMode = #if (flash || js) RenderMode.BUFFER #else RenderMode.HARDWARE #end;
+			PV.renderMode = #if (flash || js) RenderMode.BUFFER #else RenderMode.HARDWARE #end;
 		}
 
 		// miscellaneous startup stuff
-		if (HXP.randomSeed == 0) HXP.randomizeSeed();
+		if (PV.randomSeed == 0) PV.randomizeSeed();
 
-		HXP.entity = new Entity();
-		HXP.time = Lib.getTimer();
+		PV.entity = new Entity();
+		PV.time = Lib.getTimer();
 
 		paused = false;
 		maxElapsed = 0.0333;
@@ -122,14 +122,14 @@ class Engine extends Sprite
 	{
 		_scene.updateLists();
 		checkScene();
-		if (HXP.tweener.active && HXP.tweener.hasTween) HXP.tweener.updateTweens();
+		if (PV.tweener.active && PV.tweener.hasTween) PV.tweener.updateTweens();
 		if (_scene.active)
 		{
 			if (_scene.hasTween) _scene.updateTweens();
 			_scene.update();
 		}
 		_scene.updateLists(false);
-		HXP.screen.update();
+		PV.screen.update();
 	}
 
 	/**
@@ -138,32 +138,32 @@ class Engine extends Sprite
 	@:dox(hide)
 	public function render()
 	{
-		if (HXP.screen.needsResize) HXP.resize(HXP.windowWidth, HXP.windowHeight);
+		if (PV.screen.needsResize) PV.resize(PV.windowWidth, PV.windowHeight);
 
 		// timing stuff
 		var t:Float = Lib.getTimer();
 		if (_frameLast == 0) _frameLast = Std.int(t);
 
 		// render loop
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
-			HXP.screen.swap();
-			HXP.screen.refresh();
+			PV.screen.swap();
+			PV.screen.refresh();
 		}
 		Draw.resetTarget();
 
 		if (_scene.visible) _scene.render();
 
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
-			HXP.screen.redraw();
+			PV.screen.redraw();
 		}
 
 		// more timing stuff
 		t = Lib.getTimer();
 		_frameListSum += (_frameList[_frameList.length] = Std.int(t - _frameLast));
 		if (_frameList.length > 10) _frameListSum -= _frameList.shift();
-		HXP.frameRate = 1000 / (_frameListSum / _frameList.length);
+		PV.frameRate = 1000 / (_frameListSum / _frameList.length);
 		_frameLast = t;
 	}
 
@@ -172,41 +172,41 @@ class Engine extends Sprite
 	 */
 	private function setStageProperties()
 	{
-		HXP.stage.frameRate = HXP.assignedFrameRate;
-		HXP.stage.align = StageAlign.TOP_LEFT;
+		PV.stage.frameRate = PV.assignedFrameRate;
+		PV.stage.align = StageAlign.TOP_LEFT;
 #if !js
-		HXP.stage.quality = StageQuality.HIGH;
+		PV.stage.quality = StageQuality.HIGH;
 #end
-		HXP.stage.scaleMode = StageScaleMode.NO_SCALE;
-		HXP.stage.displayState = StageDisplayState.NORMAL;
-		HXP.windowWidth = HXP.stage.stageWidth;
-		HXP.windowHeight = HXP.stage.stageHeight;
+		PV.stage.scaleMode = StageScaleMode.NO_SCALE;
+		PV.stage.displayState = StageDisplayState.NORMAL;
+		PV.windowWidth = PV.stage.stageWidth;
+		PV.windowHeight = PV.stage.stageHeight;
 
 		resize(); // call resize once to initialize the screen
 
 		// set resize event
-		HXP.stage.addEventListener(Event.RESIZE, function (e:Event) {
+		PV.stage.addEventListener(Event.RESIZE, function (e:Event) {
 			resize();
 		});
 
-		HXP.stage.addEventListener(Event.ACTIVATE, function (e:Event) {
-			HXP.focused = true;
+		PV.stage.addEventListener(Event.ACTIVATE, function (e:Event) {
+			PV.focused = true;
 			focusGained();
 			_scene.focusGained();
 		});
 
-		HXP.stage.addEventListener(Event.DEACTIVATE, function (e:Event) {
-			HXP.focused = false;
+		PV.stage.addEventListener(Event.DEACTIVATE, function (e:Event) {
+			PV.focused = false;
 			focusLost();
 			_scene.focusLost();
 		});
 
 #if !(flash || html5)
 		flash.display.Stage.shouldRotateInterface = function(orientation:Int):Bool {
-			if (HXP.indexOf(HXP.orientations, orientation) == -1) return false;
-			var tmp = HXP.height;
-			HXP.height = HXP.width;
-			HXP.width = tmp;
+			if (PV.indexOf(PV.orientations, orientation) == -1) return false;
+			var tmp = PV.height;
+			PV.height = PV.width;
+			PV.width = tmp;
 			resize();
 			return true;
 		}
@@ -216,14 +216,14 @@ class Engine extends Sprite
 	/** @private Event handler for stage resize */
 	private function resize()
 	{
-		if (HXP.width == 0) HXP.width = HXP.stage.stageWidth;
-		if (HXP.height == 0) HXP.height = HXP.stage.stageHeight;
+		if (PV.width == 0) PV.width = PV.stage.stageWidth;
+		if (PV.height == 0) PV.height = PV.stage.stageHeight;
 		// calculate scale from width/height values
-		HXP.windowWidth = HXP.stage.stageWidth;
-		HXP.windowHeight = HXP.stage.stageHeight;
-		HXP.screen.scaleX = HXP.stage.stageWidth / HXP.width;
-		HXP.screen.scaleY = HXP.stage.stageHeight / HXP.height;
-		HXP.resize(HXP.stage.stageWidth, HXP.stage.stageHeight);
+		PV.windowWidth = PV.stage.stageWidth;
+		PV.windowHeight = PV.stage.stageHeight;
+		PV.screen.scaleX = PV.stage.stageWidth / PV.width;
+		PV.screen.scaleY = PV.stage.stageHeight / PV.height;
+		PV.resize(PV.stage.stageWidth, PV.stage.stageHeight);
 	}
 
 	/** @private Event handler for stage entry. */
@@ -233,11 +233,11 @@ class Engine extends Sprite
 #if flash
 		if (e != null)
 			Lib.current.removeEventListener(Event.ADDED_TO_STAGE, onStage);
-		HXP.stage = Lib.current.stage;
-		HXP.stage.addChild(this);
+		PV.stage = Lib.current.stage;
+		PV.stage.addChild(this);
 #else
 		removeEventListener(Event.ADDED_TO_STAGE, onStage);
-		HXP.stage = stage;
+		PV.stage = stage;
 #end
 		setStageProperties();
 
@@ -252,8 +252,8 @@ class Engine extends Sprite
 		init();
 
 		// start game loop
-		_rate = 1000 / HXP.assignedFrameRate;
-		if (HXP.fixed)
+		_rate = 1000 / PV.assignedFrameRate;
+		if (PV.fixed)
 		{
 			// fixed framerate
 			_skip = _rate * (maxFrameSkip + 1);
@@ -269,22 +269,22 @@ class Engine extends Sprite
 		}
 
 		// Warnings when forcing RenderMode
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			#if (!(flash || js) && debug)
-			HXP.console.log(["Warning: Using RenderMode.BUFFER on native target may result in bad performance"]);
+			PV.console.log(["Warning: Using RenderMode.BUFFER on native target may result in bad performance"]);
 			#end
 		}
 		else
 		{
 			#if ((flash || js) && debug)
-			HXP.console.log(["Warning: Using RenderMode.HARDWARE on flash/html5 target may result in corrupt graphics"]);
+			PV.console.log(["Warning: Using RenderMode.HARDWARE on flash/html5 target may result in corrupt graphics"]);
 			#end
 		}
 
 		// HTML 5 warning
 		#if (js && debug)
-		HXP.console.log(["Warning: the HTML 5 target is currently experimental"]);
+		PV.console.log(["Warning: the HTML 5 target is currently experimental"]);
 		#end
 	}
 
@@ -293,25 +293,25 @@ class Engine extends Sprite
 	{
 		// update timer
 		_time = _gameTime = Lib.getTimer();
-		HXP._systemTime = _time - _systemTime;
+		PV._systemTime = _time - _systemTime;
 		_updateTime = _time;
-		HXP.elapsed = (_time - _last) / 1000;
-		if (HXP.elapsed > maxElapsed) HXP.elapsed = maxElapsed;
-		HXP.elapsed *= HXP.rate;
+		PV.elapsed = (_time - _last) / 1000;
+		if (PV.elapsed > maxElapsed) PV.elapsed = maxElapsed;
+		PV.elapsed *= PV.rate;
 		_last = _time;
 
 		// update loop
 		if (!paused) update();
 
 		// update console
-		if (HXP.consoleEnabled()) HXP.console.update();
+		if (PV.consoleEnabled()) PV.console.update();
 
 		// update input
 		Input.update();
 
 		// update timer
 		_time = _renderTime = Lib.getTimer();
-		HXP._updateTime = _time - _updateTime;
+		PV._updateTime = _time - _updateTime;
 
 		// render loop
 		if (paused) _frameLast = _time; // continue updating frame timer
@@ -319,8 +319,8 @@ class Engine extends Sprite
 
 		// update timer
 		_time = _systemTime = Lib.getTimer();
-		HXP._renderTime = _time - _renderTime;
-		HXP._gameTime = _time - _gameTime;
+		PV._renderTime = _time - _renderTime;
+		PV._gameTime = _time - _gameTime;
 	}
 
 	/** @private Fixed framerate game loop. */
@@ -336,13 +336,13 @@ class Engine extends Sprite
 
 		// update timer
 		_gameTime = Std.int(_time);
-		HXP._systemTime = _time - _systemTime;
+		PV._systemTime = _time - _systemTime;
 
 		// update loop
 		if (_delta > _skip) _delta = _skip;
 		while (_delta >= _rate)
 		{
-			HXP.elapsed = _rate * HXP.rate * 0.001;
+			PV.elapsed = _rate * PV.rate * 0.001;
 
 			// update timer
 			_updateTime = _time;
@@ -353,14 +353,14 @@ class Engine extends Sprite
 			if (!paused) update();
 
 			// update console
-			if (HXP.consoleEnabled()) HXP.console.update();
+			if (PV.consoleEnabled()) PV.console.update();
 
 			// update input
 			Input.update();
 
 			// update timer
 			_time = Lib.getTimer();
-			HXP._updateTime = _time - _updateTime;
+			PV._updateTime = _time - _updateTime;
 		}
 
 		// update timer
@@ -371,8 +371,8 @@ class Engine extends Sprite
 
 		// update timer
 		_time = _systemTime = Lib.getTimer();
-		HXP._renderTime = _time - _renderTime;
-		HXP._gameTime =  _time - _gameTime;
+		PV._renderTime = _time - _renderTime;
+		PV._gameTime =  _time - _gameTime;
 	}
 
 	/** @private Switch scenes if they've changed. */
@@ -388,7 +388,7 @@ class Engine extends Sprite
 			_scene = _scenes.first();
 
 			addChild(_scene.sprite);
-			HXP.camera = _scene.camera;
+			PV.camera = _scene.camera;
 			_scene.updateLists();
 			_scene.begin();
 			_scene.updateLists();

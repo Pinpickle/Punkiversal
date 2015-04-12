@@ -5,7 +5,7 @@ import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.geom.Matrix;
 import flash.geom.ColorTransform;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.RenderMode;
 import com.punkiversal.Graphic;
 import com.punkiversal.graphics.Canvas;
@@ -72,7 +72,7 @@ class BitmapText extends Graphic
 		if (options == null) options = {};
 
 		// defaults
-		if (!Reflect.hasField(options, "font"))      options.font      = HXP.defaultFont + ".png";
+		if (!Reflect.hasField(options, "font"))      options.font      = PV.defaultFont + ".png";
 		if (!Reflect.hasField(options, "size"))      options.size      = null;
 		if (!Reflect.hasField(options, "color"))     options.color     = 0xFFFFFF;
 		if (!Reflect.hasField(options, "wordWrap"))  options.wordWrap  = false;
@@ -80,7 +80,7 @@ class BitmapText extends Graphic
 		// load the font as a BitmapFontAtlas
 		var font = BitmapFontAtlas.getFont(options.font, options.format, options.extraParams);
 
-		blit = HXP.renderMode != RenderMode.HARDWARE;
+		blit = PV.renderMode != RenderMode.HARDWARE;
 		_font = cast(font, BitmapFontAtlas);
 
 		// failure to load
@@ -99,8 +99,8 @@ class BitmapText extends Graphic
 
 		if (blit)
 		{
-			_set = HXP.getBitmap(StringTools.replace(options.font, ".fnt", ".png"));
-			_matrix = HXP.matrix;
+			_set = PV.getBitmap(StringTools.replace(options.font, ".fnt", ".png"));
+			_matrix = PV.matrix;
 			_colorTransform = new ColorTransform();
 		}
 
@@ -140,9 +140,9 @@ class BitmapText extends Graphic
 	private function updateColor()
 	{
 		// update _colorTransform if blitting
-		_red = HXP.getRed(color) / 255;
-		_green = HXP.getGreen(color) / 255;
-		_blue = HXP.getBlue(color) / 255;
+		_red = PV.getRed(color) / 255;
+		_green = PV.getGreen(color) / 255;
+		_blue = PV.getBlue(color) / 255;
 
 		if (blit)
 		{
@@ -271,8 +271,8 @@ class BitmapText extends Graphic
 
 		var fontScale = size / _font.fontSize;
 
-		var fsx = HXP.screen.fullScaleX,
-			fsy = HXP.screen.fullScaleY;
+		var fsx = PV.screen.fullScaleX,
+			fsy = PV.screen.fullScaleY;
 
 		var sx = scale * scaleX * fontScale,
 			sy = scale * scaleY * fontScale;
@@ -297,11 +297,11 @@ class BitmapText extends Graphic
 		if (_buffer == null || _buffer.width != w || _buffer.height != h)
 		{
 			if (_buffer != null) _buffer.dispose();
-			_buffer = HXP.createBitmap(w, h, true, 0);
+			_buffer = PV.createBitmap(w, h, true, 0);
 		}
 		else
 		{
-			_buffer.fillRect(_buffer.rect, HXP.blackColor);
+			_buffer.fillRect(_buffer.rect, PV.blackColor);
 		}
 
 		// make a pass through each character, copying it onto the buffer
@@ -407,8 +407,8 @@ class BitmapText extends Graphic
 		// determine drawing location
 		var fontScale = size / _font.fontSize;
 
-		var fsx = HXP.screen.fullScaleX,
-			fsy = HXP.screen.fullScaleY;
+		var fsx = PV.screen.fullScaleX,
+			fsy = PV.screen.fullScaleY;
 
 		var sx = scale * scaleX * fontScale * fsx,
 			sy = scale * scaleY * fontScale * fsy;

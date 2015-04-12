@@ -256,7 +256,7 @@ class Circle extends Hitbox
 	@:dox(hide)
 	override public function debugDraw(graphics:Graphics, scaleX:Float, scaleY:Float):Void
 	{
-		graphics.drawCircle((_parent.x + _x - HXP.camera.x) * scaleX, (_parent.y + _y - HXP.camera.y) * scaleY, radius * scaleX);
+		graphics.drawCircle((_parent.x + _x - PV.camera.x) * scaleX, (_parent.y + _y - PV.camera.y) * scaleY, radius * scaleX);
 	}
 
 	override private function get_x():Int { return _x - _radius; }

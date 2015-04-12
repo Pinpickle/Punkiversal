@@ -1,7 +1,7 @@
 ﻿package com.punkiversal.tweens.motion;
 
 import com.punkiversal.Tween;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.utils.Ease;
 import flash.geom.Point;
 
@@ -89,8 +89,8 @@ class QuadMotion extends Motion
 	private function get_distance():Float
 	{
 		if (_distance >= 0) return _distance;
-		var a:Point = HXP.point,
-			b:Point = HXP.point2;
+		var a:Point = PV.point,
+			b:Point = PV.point2;
 		a.x = x - 2 * _controlX + _toX;
 		a.y = y - 2 * _controlY + _toY;
 		b.x = 2 * _controlX - 2 * x;

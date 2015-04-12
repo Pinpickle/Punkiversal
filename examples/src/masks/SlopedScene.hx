@@ -1,6 +1,6 @@
 package masks;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Entity;
 import com.punkiversal.Scene;
 import com.punkiversal.graphics.Image;
@@ -56,13 +56,13 @@ class SlopedScene extends DemoScene
 		entity.graphic = image;
 		add(entity);
 
-		HXP.console.paused = true;
-		HXP.engine.paused = false;
+		PV.console.paused = true;
+		PV.engine.paused = false;
 	}
 
 	public override function end()
 	{
-		HXP.console.paused = false;
+		PV.console.paused = false;
 	}
 
 	public override function update()

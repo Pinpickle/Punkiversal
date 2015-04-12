@@ -52,7 +52,7 @@ abstract Position ({x:Float, y:Float})
 /**
  * Static catch-all class used to access global properties and functions.
  */
-class HXP
+class PV
 {
 	/**
 	 * The Punkiversal version.
@@ -127,7 +127,7 @@ class HXP
 	public static var elapsed:Float;
 
 	/**
-	 * Timescale applied to HXP.elapsed (non-fixed framerate only).
+	 * Timescale applied to PV.elapsed (non-fixed framerate only).
 	 */
 	public static var rate:Float = 1;
 
@@ -190,10 +190,10 @@ class HXP
 		renderMode = value;
 
 		// recreate screen for buffer rendering
-		if (HXP.screen == null)
-			HXP.screen = new Screen();
+		if (PV.screen == null)
+			PV.screen = new Screen();
 		else
-			HXP.screen.init();
+			PV.screen.init();
 
 		return value;
 	}
@@ -249,15 +249,15 @@ class HXP
 	public static function resize(width:Int, height:Int)
 	{
 		// resize scene to scale
-		width = Std.int(width / HXP.screen.fullScaleX);
-		height = Std.int(height / HXP.screen.fullScaleY);
-		HXP.width = width;
-		HXP.height = height;
-		HXP.halfWidth = width / 2;
-		HXP.halfHeight = height / 2;
-		HXP.bounds.width = width;
-		HXP.bounds.height = height;
-		HXP.screen.resize();
+		width = Std.int(width / PV.screen.fullScaleX);
+		height = Std.int(height / PV.screen.fullScaleY);
+		PV.width = width;
+		PV.height = height;
+		PV.halfWidth = width / 2;
+		PV.halfHeight = height / 2;
+		PV.bounds.width = width;
+		PV.bounds.height = height;
+		PV.screen.resize();
 	}
 
 	/**
@@ -296,11 +296,11 @@ class HXP
 	 * Toggles between windowed and fullscreen modes
 	 */
 	public static var fullscreen(get, set):Bool;
-	private static inline function get_fullscreen():Bool { return HXP.stage.displayState == StageDisplayState.FULL_SCREEN; }
+	private static inline function get_fullscreen():Bool { return PV.stage.displayState == StageDisplayState.FULL_SCREEN; }
 	private static inline function set_fullscreen(value:Bool):Bool
 	{
-		if (value) HXP.stage.displayState = StageDisplayState.FULL_SCREEN;
-		else HXP.stage.displayState = StageDisplayState.NORMAL;
+		if (value) PV.stage.displayState = StageDisplayState.FULL_SCREEN;
+		else PV.stage.displayState = StageDisplayState.NORMAL;
 		return value;
 	}
 
@@ -506,8 +506,8 @@ class HXP
 	 */
 	public static inline function rotateAround(object:Position, anchor:Position, angle:Float = 0, relative:Bool = true)
 	{
-		if (relative) angle += HXP.angle(anchor.x, anchor.y, object.x, object.y);
-		HXP.angleXY(object, angle, HXP.distance(anchor.x, anchor.y, object.x, object.y), anchor.x, anchor.y);
+		if (relative) angle += PV.angle(anchor.x, anchor.y, object.x, object.y);
+		PV.angleXY(object, angle, PV.distance(anchor.x, anchor.y, object.x, object.y), anchor.x, anchor.y);
 	}
 
 	/**
@@ -689,7 +689,7 @@ class HXP
 	}
 
 	/**
-	 * The random seed used by HXP's random functions.
+	 * The random seed used by PV's random functions.
 	 */
 	public static var randomSeed(default, set):Int = 0;
 	private static inline function set_randomSeed(value:Int):Int
@@ -708,7 +708,7 @@ class HXP
 	}
 
 	/**
-	 * A pseudo-random Float produced using HXP's random seed, where 0 <= Float < 1.
+	 * A pseudo-random Float produced using PV's random seed, where 0 <= Float < 1.
 	 */
 	public static var random(get, null):Float;
 	private static inline function get_random():Float
@@ -1109,7 +1109,7 @@ class HXP
 	 * 						tweener		The Tweener to add this Tween to.
 	 * @return	The added MultiVarTween object.
 	 *
-	 * Example: HXP.tween(object, { x: 500, y: 350 }, 2.0, { ease: Float -> Float, complete: onComplete } );
+	 * Example: PV.tween(object, { x: 500, y: 350 }, 2.0, { ease: Float -> Float, complete: onComplete } );
 	 */
 	public static function tween(object:Dynamic, values:Dynamic, duration:Float, options:Dynamic = null):MultiVarTween
 	{
@@ -1117,14 +1117,14 @@ class HXP
 		{
 			var delay:Float = options.delay;
 			Reflect.deleteField( options, "delay" );
-			HXP.alarm(delay, function (o:Dynamic):Void { HXP.tween(object, values, duration, options); });
+			PV.alarm(delay, function (o:Dynamic):Void { PV.tween(object, values, duration, options); });
 			return null;
 		}
 
 		var type:TweenType = TweenType.OneShot,
 			complete:Dynamic -> Void = null,
 			ease:Float -> Float = null,
-			tweener:Tweener = HXP.tweener;
+			tweener:Tweener = PV.tweener;
 		if (Std.is(object, Tweener)) tweener = cast(object, Tweener);
 		if (options != null)
 		{
@@ -1144,15 +1144,15 @@ class HXP
 	 * @param	delay		The duration to wait before calling the callback.
 	 * @param	complete	The function to be called when complete.
 	 * @param	type		Tween type.
-	 * @param	tweener		The Tweener object to add this Alarm to. Defaults to HXP.tweener.
+	 * @param	tweener		The Tweener object to add this Alarm to. Defaults to PV.tweener.
 	 * @return	The added Alarm object.
 	 *
-	 * Example: HXP.alarm(5.0, callbackFunction, TweenType.Looping); // Calls callbackFunction every 5 seconds
+	 * Example: PV.alarm(5.0, callbackFunction, TweenType.Looping); // Calls callbackFunction every 5 seconds
 	 */
 	public static function alarm(delay:Float, complete:Dynamic -> Void, ?type:TweenType = null, tweener:Tweener = null):Alarm
 	{
 		if (type == null) type = TweenType.OneShot;
-		if (tweener == null) tweener = HXP.tweener;
+		if (tweener == null) tweener = PV.tweener;
 
 		var alarm:Alarm = new Alarm(delay, complete, type);
 		tweener.addTween(alarm, true);
@@ -1200,7 +1200,7 @@ class HXP
 		while (--i > 0)
 		{
 			t = a[i];
-			a[i] = a[j = HXP.rand(i + 1)];
+			a[i] = a[j = PV.rand(i + 1)];
 			a[j] = t;
 		}
 	}
@@ -1214,7 +1214,7 @@ class HXP
 	public static function resizeStage (width:Int, height:Int)
 	{
 		#if (cpp || neko)
-		HXP.stage.resize(width, height);
+		PV.stage.resize(width, height);
 		resize(width, height);
 		#elseif debug
 		trace("Can only resize the stage in cpp or neko targets.");

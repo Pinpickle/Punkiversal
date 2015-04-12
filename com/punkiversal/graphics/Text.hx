@@ -12,7 +12,7 @@ import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
 import openfl.Assets;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Graphic;
 import com.punkiversal.graphics.atlas.Atlas;
 
@@ -20,7 +20,7 @@ import com.punkiversal.graphics.atlas.Atlas;
  * Text option including the font, size, color...
  */
 typedef TextOptions = {
-	/** Optional. The font to use. Default value is com.punkiversal.HXP.defaultFont. */
+	/** Optional. The font to use. Default value is com.punkiversal.PV.defaultFont. */
 	@:optional var font:String;
 	/** Optional. The font size. Default value is 16. */
 	@:optional var size:Int;	
@@ -61,7 +61,7 @@ abstract StyleType(TextFormat)
 		
 		for (key in Reflect.fields(object))
 		{
-			if (HXP.indexOf(fields, key) > -1)
+			if (PV.indexOf(fields, key) > -1)
 			{
 				Reflect.setField(format, key, Reflect.field(object, key));
 			}
@@ -118,7 +118,7 @@ class Text extends Image
 		if (text == null) text = "";
 
 		// defaults
-		if (!Reflect.hasField(options, "font"))      options.font      = HXP.defaultFont;
+		if (!Reflect.hasField(options, "font"))      options.font      = PV.defaultFont;
 		if (!Reflect.hasField(options, "size"))      options.size      = 16;
 		if (!Reflect.hasField(options, "align"))     options.align     = TextFormatAlign.LEFT;
 		if (!Reflect.hasField(options, "color"))     options.color     = 0xFFFFFF;
@@ -146,8 +146,8 @@ class Text extends Image
 		_width = (width == 0 ? Std.int(_field.textWidth + 4) : width);
 		_height = (height == 0 ? Std.int(_field.textHeight + 4) : height);
 
-		var source = HXP.createBitmap(_width, _height, true);
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		var source = PV.createBitmap(_width, _height, true);
+		if (PV.renderMode == RenderMode.HARDWARE)
 		{
 			_source = source;
 			_sourceRect = source.rect;
@@ -160,7 +160,7 @@ class Text extends Image
 			super(source);
 		}
 
-		blit = HXP.renderMode == RenderMode.BUFFER;
+		blit = PV.renderMode == RenderMode.BUFFER;
 		updateTextBuffer();
 
 		this.size = options.size;
@@ -245,7 +245,7 @@ class Text extends Image
 #if debug
 			else
 			{
-				HXP.log("Could not found text style '" + tagName + "'");
+				PV.log("Could not found text style '" + tagName + "'");
 			}
 #end
 		}
@@ -253,7 +253,7 @@ class Text extends Image
 #if debug
 		if (_field.text != _text)
 		{
-			HXP.log("Text field and _text do not match!");
+			PV.log("Text field and _text do not match!");
 		}
 #end
 	}
@@ -284,7 +284,7 @@ class Text extends Image
 
 		if (_width > _source.width || _height > _source.height)
 		{
-			_source = HXP.createBitmap(
+			_source = PV.createBitmap(
 				Std.int(Math.max(_width, _source.width)),
 				Std.int(Math.max(_height, _source.height)),
 				true);

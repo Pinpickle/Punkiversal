@@ -1,6 +1,6 @@
 package com.punkiversal.utils;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 
 class Touch
 {
@@ -47,13 +47,13 @@ class Touch
 	 * The touch x-axis coord in the scene.
 	 */
 	public var sceneX(get, never):Float;
-	private inline function get_sceneX():Float { return x + HXP.camera.x; }
+	private inline function get_sceneX():Float { return x + PV.camera.x; }
 
 	/**
 	 * The touch y-axis coord in the scene.
 	 */
 	public var sceneY(get, never):Float;
-	private inline function get_sceneY():Float { return y + HXP.camera.y; }
+	private inline function get_sceneY():Float { return y + PV.camera.y; }
 
 	/**
 	 * If the touch was pressed this frame.
@@ -72,6 +72,6 @@ class Touch
 	@:dox(hide)
 	public function update()
 	{
-		time += HXP.elapsed;
+		time += PV.elapsed;
 	}
 }

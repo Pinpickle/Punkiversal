@@ -1,7 +1,7 @@
 package com.punkiversal.graphics.atlas;
 
 import com.punkiversal.graphics.atlas.AtlasData;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Rectangle;
@@ -29,13 +29,13 @@ class TextureAtlas extends Atlas
 		var atlas = new TextureAtlas(root.get("imagePath"));
 		for (sprite in root.elements())
 		{
-			HXP.rect.x = Std.parseInt(sprite.get("x"));
-			HXP.rect.y = Std.parseInt(sprite.get("y"));
-			if (sprite.exists("w")) HXP.rect.width = Std.parseInt(sprite.get("w"));
-			if (sprite.exists("h")) HXP.rect.height = Std.parseInt(sprite.get("h"));
+			PV.rect.x = Std.parseInt(sprite.get("x"));
+			PV.rect.y = Std.parseInt(sprite.get("y"));
+			if (sprite.exists("w")) PV.rect.width = Std.parseInt(sprite.get("w"));
+			if (sprite.exists("h")) PV.rect.height = Std.parseInt(sprite.get("h"));
 
 			// set the defined region
-			var region = atlas.defineRegion(sprite.get("n"), HXP.rect);
+			var region = atlas.defineRegion(sprite.get("n"), PV.rect);
 
 			if (sprite.exists("r") && sprite.get("r") == "y") region.rotated = true;
 		}

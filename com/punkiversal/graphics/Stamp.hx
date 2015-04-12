@@ -1,6 +1,6 @@
 package com.punkiversal.graphics;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Graphic;
 import com.punkiversal.graphics.atlas.Atlas;
 import com.punkiversal.graphics.atlas.AtlasRegion;
@@ -59,7 +59,7 @@ class Stamp extends Graphic
 		_point.x = point.x + x - camera.x * scrollX;
 		_point.y = point.y + y - camera.y * scrollY;
 
-		var sx = HXP.screen.fullScaleX, sy = HXP.screen.fullScaleY;
+		var sx = PV.screen.fullScaleX, sy = PV.screen.fullScaleY;
 		_region.draw(Math.floor(_point.x * sx), Math.floor(_point.y * sy), layer, sx, sy);
 	}
 

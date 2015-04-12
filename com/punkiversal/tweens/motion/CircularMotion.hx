@@ -1,7 +1,7 @@
 ﻿package com.punkiversal.tweens.motion;
 
 import flash.geom.Point;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Tween;
 import com.punkiversal.utils.Ease;
 
@@ -38,7 +38,7 @@ class CircularMotion extends Motion
 		_centerX = centerX;
 		_centerY = centerY;
 		_radius = radius;
-		this.angle = _angleStart = angle * HXP.RAD;
+		this.angle = _angleStart = angle * PV.RAD;
 		_angleFinish = _CIRC * (clockwise ? 1 : -1);
 		_target = duration;
 		_ease = ease;
@@ -60,7 +60,7 @@ class CircularMotion extends Motion
 		_centerX = centerX;
 		_centerY = centerY;
 		_radius = radius;
-		this.angle = _angleStart = angle * HXP.RAD;
+		this.angle = _angleStart = angle * PV.RAD;
 		_angleFinish = _CIRC * (clockwise ? 1 : -1);
 		_target = (_radius * _CIRC) / speed;
 		_ease = ease;

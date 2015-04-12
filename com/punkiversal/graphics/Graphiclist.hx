@@ -1,7 +1,7 @@
 package com.punkiversal.graphics;
 
 import com.punkiversal.Entity;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Graphic;
 import com.punkiversal.graphics.atlas.Atlas;
 import flash.display.BitmapData;
@@ -120,8 +120,8 @@ class Graphiclist extends Graphic
 	 */
 	public function remove(graphic:Graphic):Graphic
 	{
-		if (HXP.indexOf(_graphics, graphic) < 0) return graphic;
-		HXP.clear(_temp);
+		if (PV.indexOf(_graphics, graphic) < 0) return graphic;
+		PV.clear(_temp);
 
 		for (g in _graphics)
 		{
@@ -152,8 +152,8 @@ class Graphiclist extends Graphic
 	 */
 	public function removeAll()
 	{
-		HXP.clear(_graphics);
-		HXP.clear(_temp);
+		PV.clear(_graphics);
+		PV.clear(_temp);
 		_count = 0;
 		active = false;
 	}

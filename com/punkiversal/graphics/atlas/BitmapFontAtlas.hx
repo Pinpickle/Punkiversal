@@ -1,7 +1,7 @@
 package com.punkiversal.graphics.atlas;
 
 import com.punkiversal.graphics.atlas.AtlasData;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import flash.display.BitmapData;
 import flash.geom.Rectangle;
 import openfl.Assets;
@@ -41,7 +41,7 @@ class BitmapFontAtlas extends TextureAtlas
 		if (_fonts == null) _fonts = new Map();
 
 		if (format == null) format = XML;
-		if (fontName == HXP.defaultFont + ".png") format = XNA;
+		if (fontName == PV.defaultFont + ".png") format = XNA;
 
 		if (!_fonts.exists(fontName))
 		{
@@ -75,10 +75,10 @@ class BitmapFontAtlas extends TextureAtlas
 
 		for (char in chars.nodes.char)
 		{
-			HXP.rect.x = Std.parseInt(char.att.x);
-			HXP.rect.y = Std.parseInt(char.att.y);
-			HXP.rect.width = Std.parseInt(char.att.width);
-			HXP.rect.height = Std.parseInt(char.att.height);
+			PV.rect.x = Std.parseInt(char.att.x);
+			PV.rect.y = Std.parseInt(char.att.y);
+			PV.rect.width = Std.parseInt(char.att.width);
+			PV.rect.height = Std.parseInt(char.att.height);
 
 			
 			var glyph:String = null;
@@ -101,14 +101,14 @@ class BitmapFontAtlas extends TextureAtlas
 
 			var md:GlyphData = {
 				glyph: glyph,
-				rect: HXP.rect.clone(),
+				rect: PV.rect.clone(),
 				xOffset: char.has.xoffset ? Std.parseInt(char.att.xoffset) : 0,
 				yOffset: char.has.yoffset ? Std.parseInt(char.att.yoffset) : 0,
 				xAdvance: char.has.xadvance ? Std.parseInt(char.att.xadvance) : 0
 			};
 
 			// set the defined region
-			var region = atlas.defineRegion(glyph, HXP.rect);
+			var region = atlas.defineRegion(glyph, PV.rect);
 			atlas.glyphData[glyph] = md;
 		}
 		return atlas;
@@ -173,18 +173,18 @@ class BitmapFontAtlas extends TextureAtlas
 					var gh:Int = gy - cy;
 					
 					glyph = glyphString.charAt(letterIdx);
-					HXP.rect.setTo(cx, cy, gw, gh);
+					PV.rect.setTo(cx, cy, gw, gh);
 					
 					var md:GlyphData = {
 						glyph: glyph,
-						rect: HXP.rect.clone(),
+						rect: PV.rect.clone(),
 						xOffset: 0,
 						yOffset: 0,
 						xAdvance: gw
 					};
 
 					// set the defined region
-					var region = atlas.defineRegion(glyph, HXP.rect);
+					var region = atlas.defineRegion(glyph, PV.rect);
 					atlas.glyphData[glyph] = md;
 					
 					// store max size
@@ -206,10 +206,10 @@ class BitmapFontAtlas extends TextureAtlas
 		
 		// remove background color
 		var bgColor32:Int = bmd.getPixel32(0, 0);
-		bmd.threshold(bmd, bmd.rect, HXP.zero, "==", bgColor32, 0x00000000, 0xFFFFFFFF, true);
+		bmd.threshold(bmd, bmd.rect, PV.zero, "==", bgColor32, 0x00000000, 0xFFFFFFFF, true);
 		
 		if (options.glyphBGColor != null)
-			bmd.threshold(bmd, bmd.rect, HXP.zero, "==", options.glyphBGColor, 0x00000000, 0xFFFFFFFF, true);
+			bmd.threshold(bmd, bmd.rect, PV.zero, "==", options.glyphBGColor, 0x00000000, 0xFFFFFFFF, true);
 		
 		
 		return atlas;

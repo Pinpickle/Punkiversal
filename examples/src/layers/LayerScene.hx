@@ -1,7 +1,7 @@
 package layers;
 
 import com.punkiversal.Entity;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Scene;
 import com.punkiversal.graphics.Image;
 import com.punkiversal.graphics.Text;
@@ -38,7 +38,7 @@ class LayerScene extends DemoScene
 		var img3 = Image.createCircle(100, 0x0000ff);
 		addGraphic(img3, 0, 200, 200); // add graphic at base layer 10
 
-		var background = Image.createRect(HXP.width, HXP.height, 0xffffff);
+		var background = Image.createRect(PV.width, PV.height, 0xffffff);
 		addGraphic(background, 100); // add graphic at back
 
 		var text = new com.punkiversal.graphics.Text();
@@ -47,7 +47,7 @@ class LayerScene extends DemoScene
 		text.addStyle("orange", {color: 0xF2990D});
 		text.richText = "<welcome>Welcome</welcome> to <orange>Punkiversal</orange>!";
 		text.centerOrigin();
-		addGraphic(text, -5, HXP.halfWidth, HXP.halfHeight);
+		addGraphic(text, -5, PV.halfWidth, PV.halfHeight);
 	}
 
 }

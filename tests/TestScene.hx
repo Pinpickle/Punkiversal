@@ -1,6 +1,6 @@
 import com.punkiversal.Engine;
 import com.punkiversal.Entity;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Scene;
 
 // dummy entity for testing class types
@@ -20,12 +20,12 @@ class TestScene extends haxe.unit.TestCase
 
 	public function testScene()
 	{
-		HXP.scene = scene;
-		assertFalse(HXP.scene == scene);
+		PV.scene = scene;
+		assertFalse(PV.scene == scene);
 
 		// update to set the scene as active
-		HXP.engine.update();
-		assertTrue(HXP.scene == scene);
+		PV.engine.update();
+		assertTrue(PV.scene == scene);
 	}
 
 	public function testEntityCount()

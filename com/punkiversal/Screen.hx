@@ -13,7 +13,7 @@ import flash.Lib;
 
 /**
  * Container for the main screen buffer. Can be used to transform the screen.
- * To be used through `HXP.screen`.
+ * To be used through `PV.screen`.
  */
 class Screen
 {
@@ -36,13 +36,13 @@ class Screen
 		updateTransformation();
 
 		// create screen buffers
-		if (HXP.engine.contains(_sprite))
+		if (PV.engine.contains(_sprite))
 		{
-			HXP.engine.removeChild(_sprite);
+			//PV.engine.removeChild(_sprite);
 		}
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
-			HXP.engine.addChild(_sprite);
+			//PV.engine.addChild(_sprite);
 		}
 	}
 
@@ -61,20 +61,20 @@ class Screen
 	@:dox(hide)
 	public function resize()
 	{
-		width = HXP.width;
-		height = HXP.height;
+		width = PV.width;
+		height = PV.height;
 
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			disposeBitmap(_bitmap[0]);
 			disposeBitmap(_bitmap[1]);
 
-			_bitmap[0] = new Bitmap(HXP.createBitmap(width, height, true), PixelSnapping.NEVER);
-			_bitmap[1] = new Bitmap(HXP.createBitmap(width, height, true), PixelSnapping.NEVER);
+			_bitmap[0] = new Bitmap(PV.createBitmap(width, height, true), PixelSnapping.NEVER);
+			_bitmap[1] = new Bitmap(PV.createBitmap(width, height, true), PixelSnapping.NEVER);
 
 			_sprite.addChild(_bitmap[0]).visible = true;
 			_sprite.addChild(_bitmap[1]).visible = false;
-			HXP.buffer = _bitmap[0].bitmapData;
+			PV.buffer = _bitmap[0].bitmapData;
 		}
 
 		_current = 0;
@@ -86,10 +86,10 @@ class Screen
 	 */
 	public function swap()
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			#if !bitfive _current = 1 - _current; #end
-			HXP.buffer = _bitmap[_current].bitmapData;
+			PV.buffer = _bitmap[_current].bitmapData;
 		}
 	}
 
@@ -109,7 +109,7 @@ class Screen
 	public function refresh()
 	{
 		// refreshes the screen
-		HXP.buffer.fillRect(HXP.bounds, HXP.stage.color);
+		PV.buffer.fillRect(PV.bounds, PV.stage.color);
 	}
 
 	/**
@@ -118,7 +118,7 @@ class Screen
 	public function redraw()
 	{
 		// refresh the buffers
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			_bitmap[_current].visible = true;
 			_bitmap[1 - _current].visible = false;
@@ -158,7 +158,7 @@ class Screen
 			_shakeX = sx;
 			_shakeY = sy;
 
-			_shakeTime -= HXP.elapsed;
+			_shakeTime -= PV.elapsed;
 			if (_shakeTime < 0) _shakeTime = 0;
 		}
 		else if (_shakeX != 0 || _shakeY != 0)
@@ -173,10 +173,10 @@ class Screen
 	 * Refresh color of the screen.
 	 */
 	public var color(get, set):Int;
-	private function get_color():Int { return HXP.stage.color; }
+	private function get_color():Int { return PV.stage.color; }
 	private function set_color(value:Int):Int
 	{
-		HXP.stage.color = value;
+		PV.stage.color = value;
 		
 		return value;
 	}
@@ -188,7 +188,7 @@ class Screen
 	private function set_x(value:Int):Int
 	{
 		if (x == value) return value;
-		HXP.engine.x = x = value;
+		PV.engine.x = x = value;
 		updateTransformation();
 		return x;
 	}
@@ -200,7 +200,7 @@ class Screen
 	private function set_y(value:Int):Int
 	{
 		if (y == value) return value;
-		HXP.engine.y = y = value;
+		PV.engine.y = y = value;
 		updateTransformation();
 		return y;
 	}
@@ -293,11 +293,11 @@ class Screen
 	 * Rotation of the screen, in degrees.
 	 */
 	public var angle(get, set):Float;
-	private function get_angle():Float { return _angle * HXP.DEG; }
+	private function get_angle():Float { return _angle * PV.DEG; }
 	private function set_angle(value:Float):Float
 	{
-		if (_angle == value * HXP.RAD) return value;
-		_angle = value * HXP.RAD;
+		if (_angle == value * PV.RAD) return value;
+		_angle = value * PV.RAD;
 		updateTransformation();
 		return _angle;
 	}
@@ -308,7 +308,7 @@ class Screen
 	public var smoothing(get, set):Bool;
 	private function get_smoothing():Bool
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			return _bitmap[0].smoothing;
 		}
@@ -319,7 +319,7 @@ class Screen
 	}
 	private function set_smoothing(value:Bool):Bool
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			_bitmap[0].smoothing = _bitmap[1].smoothing = value;
 		}
@@ -359,7 +359,7 @@ class Screen
 	 */
 	public function capture():Image
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			return new Image(_bitmap[_current].bitmapData.clone());
 		}

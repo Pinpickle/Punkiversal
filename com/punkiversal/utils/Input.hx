@@ -6,7 +6,7 @@ import flash.events.TouchEvent;
 import flash.ui.Keyboard;
 import flash.ui.Multitouch;
 import flash.ui.MultitouchInputMode;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.ds.Either;
 
 #if (cpp || neko)
@@ -139,7 +139,7 @@ class Input
 	public static var mouseX(get, never):Int;
 	private static function get_mouseX():Int
 	{
-		return HXP.screen.mouseX;
+		return PV.screen.mouseX;
 	}
 
 	/**
@@ -148,7 +148,7 @@ class Input
 	public static var mouseY(get, never):Int;
 	private static function get_mouseY():Int
 	{
-		return HXP.screen.mouseY;
+		return PV.screen.mouseY;
 	}
 
 	/**
@@ -157,7 +157,7 @@ class Input
 	public static var mouseFlashX(get, never):Int;
 	private static function get_mouseFlashX():Int
 	{
-		return Std.int(HXP.stage.mouseX - HXP.screen.x);
+		return Std.int(PV.stage.mouseX - PV.screen.x);
 	}
 
 	/**
@@ -166,7 +166,7 @@ class Input
 	public static var mouseFlashY(get, never):Int;
 	private static function get_mouseFlashY():Int
 	{
-		return Std.int(HXP.stage.mouseY - HXP.screen.y);
+		return Std.int(PV.stage.mouseY - PV.screen.y);
 	}
 
 	/**
@@ -192,7 +192,7 @@ class Input
 #if debug
 				if (!_control.exists(s))
 				{
-					HXP.log("Input '" + s + "' not defined");
+					PV.log("Input '" + s + "' not defined");
 					return false;
 				}
 #end
@@ -227,11 +227,11 @@ class Input
 				{
 					for (key in _control.get(s))
 					{
-						if (key < 0 ? _pressNum != 0 : HXP.indexOf(_press, key) >= 0) return true;
+						if (key < 0 ? _pressNum != 0 : PV.indexOf(_press, key) >= 0) return true;
 					}
 				}
 			case Right(i):
-				return i < 0 ? _pressNum != 0 : HXP.indexOf(_press, i) >= 0;
+				return i < 0 ? _pressNum != 0 : PV.indexOf(_press, i) >= 0;
 		}
 		return false;
 	}
@@ -248,11 +248,11 @@ class Input
 			case Left(s):
 				for (key in _control.get(s))
 				{
-					if (key < 0 ? _releaseNum != 0 : HXP.indexOf(_release, key) >= 0) return true;
+					if (key < 0 ? _releaseNum != 0 : PV.indexOf(_release, key) >= 0) return true;
 				}
 				return false;
 			case Right(i):
-				return i < 0 ? _releaseNum != 0 : HXP.indexOf(_release, i) >= 0;
+				return i < 0 ? _releaseNum != 0 : PV.indexOf(_release, i) >= 0;
 		}
 	}
 
@@ -309,19 +309,19 @@ class Input
 	@:dox(hide)
 	public static function enable()
 	{
-		if (!_enabled && HXP.stage != null)
+		if (!_enabled && PV.stage != null)
 		{
-			HXP.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown, false,  2);
-			HXP.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp, false,  2);
-			HXP.stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown, false,  2);
-			HXP.stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp, false,  2);
-			HXP.stage.addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel, false,  2);
+			PV.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown, false,  2);
+			PV.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp, false,  2);
+			PV.stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown, false,  2);
+			PV.stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp, false,  2);
+			PV.stage.addEventListener(MouseEvent.MOUSE_WHEEL, onMouseWheel, false,  2);
 
 		#if !js
-			HXP.stage.addEventListener(MouseEvent.MIDDLE_MOUSE_DOWN, onMiddleMouseDown, false, 2);
-			HXP.stage.addEventListener(MouseEvent.MIDDLE_MOUSE_UP, onMiddleMouseUp, false, 2);
-			HXP.stage.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN, onRightMouseDown, false, 2);
-			HXP.stage.addEventListener(MouseEvent.RIGHT_MOUSE_UP, onRightMouseUp, false, 2);
+			PV.stage.addEventListener(MouseEvent.MIDDLE_MOUSE_DOWN, onMiddleMouseDown, false, 2);
+			PV.stage.addEventListener(MouseEvent.MIDDLE_MOUSE_UP, onMiddleMouseUp, false, 2);
+			PV.stage.addEventListener(MouseEvent.RIGHT_MOUSE_DOWN, onRightMouseDown, false, 2);
+			PV.stage.addEventListener(MouseEvent.RIGHT_MOUSE_UP, onRightMouseUp, false, 2);
 		#end
 
 			multiTouchSupported = Multitouch.supportsTouchEvents;
@@ -329,17 +329,17 @@ class Input
 			{
 				Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
 
-				HXP.stage.addEventListener(TouchEvent.TOUCH_BEGIN, onTouchBegin);
-				HXP.stage.addEventListener(TouchEvent.TOUCH_MOVE, onTouchMove);
-				HXP.stage.addEventListener(TouchEvent.TOUCH_END, onTouchEnd);
+				PV.stage.addEventListener(TouchEvent.TOUCH_BEGIN, onTouchBegin);
+				PV.stage.addEventListener(TouchEvent.TOUCH_MOVE, onTouchMove);
+				PV.stage.addEventListener(TouchEvent.TOUCH_END, onTouchEnd);
 			}
 
 #if (openfl && (cpp || neko))
-			HXP.stage.addEventListener(JoystickEvent.AXIS_MOVE, onJoyAxisMove);
-			HXP.stage.addEventListener(JoystickEvent.BALL_MOVE, onJoyBallMove);
-			HXP.stage.addEventListener(JoystickEvent.BUTTON_DOWN, onJoyButtonDown);
-			HXP.stage.addEventListener(JoystickEvent.BUTTON_UP, onJoyButtonUp);
-			HXP.stage.addEventListener(JoystickEvent.HAT_MOVE, onJoyHatMove);
+			PV.stage.addEventListener(JoystickEvent.AXIS_MOVE, onJoyAxisMove);
+			PV.stage.addEventListener(JoystickEvent.BALL_MOVE, onJoyBallMove);
+			PV.stage.addEventListener(JoystickEvent.BUTTON_DOWN, onJoyButtonDown);
+			PV.stage.addEventListener(JoystickEvent.BUTTON_UP, onJoyButtonUp);
+			PV.stage.addEventListener(JoystickEvent.HAT_MOVE, onJoyHatMove);
 
 		#if ouya
 			// Initializing OuyaController
@@ -566,7 +566,7 @@ class Input
 
 	private static function onTouchBegin(e:TouchEvent)
 	{
-		var touchPoint = new Touch(e.stageX / HXP.screen.fullScaleX, e.stageY / HXP.screen.fullScaleY, e.touchPointID);
+		var touchPoint = new Touch(e.stageX / PV.screen.fullScaleX, e.stageY / PV.screen.fullScaleY, e.touchPointID);
 		_touches.set(e.touchPointID, touchPoint);
 		_touchOrder.push(e.touchPointID);
 	}
@@ -574,8 +574,8 @@ class Input
 	private static function onTouchMove(e:TouchEvent)
 	{
 		var point = _touches.get(e.touchPointID);
-		point.x = e.stageX / HXP.screen.fullScaleX;
-		point.y = e.stageY / HXP.screen.fullScaleY;
+		point.x = e.stageX / PV.screen.fullScaleX;
+		point.y = e.stageY / PV.screen.fullScaleY;
 	}
 
 	private static function onTouchEnd(e:TouchEvent)

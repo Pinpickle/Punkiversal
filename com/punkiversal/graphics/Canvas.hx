@@ -7,7 +7,7 @@ import flash.geom.ColorTransform;
 import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Graphic;
 
 /**
@@ -52,7 +52,7 @@ class Canvas extends Graphic
 		_color = 0xFFFFFF;
 		_red = _green = _blue = 1;
 		_alpha = 1;
-		_graphics = HXP.sprite.graphics;
+		_graphics = PV.sprite.graphics;
 		_matrix = new Matrix();
 		_rect = new Rectangle();
 		_colorTransform = new ColorTransform();
@@ -64,11 +64,11 @@ class Canvas extends Graphic
 		_width = width;
 		_height = height;
 
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			_refWidth = Math.ceil(width / _maxWidth);
 			_refHeight = Math.ceil(height / _maxHeight);
-			_ref = HXP.createBitmap(_refWidth, _refHeight);
+			_ref = PV.createBitmap(_refWidth, _refHeight);
 			var x:Int = 0, y:Int = 0, w:Int, h:Int, i:Int = 0,
 				ww:Int = _width % _maxWidth,
 				hh:Int = _height % _maxHeight;
@@ -81,7 +81,7 @@ class Canvas extends Graphic
 				{
 					w = x < _refWidth - 1 ? _maxWidth : ww;
 					_ref.setPixel(x, y, i);
-					_buffers[i] = HXP.createBitmap(w, h, true);
+					_buffers[i] = PV.createBitmap(w, h, true);
 					i ++; x ++;
 				}
 				x = 0; y ++;
@@ -139,7 +139,7 @@ class Canvas extends Graphic
 								{
 									_midBuffers[i].dispose();
 								}
-								_midBuffers[i] = HXP.createBitmap(w, h, true);
+								_midBuffers[i] = PV.createBitmap(w, h, true);
 							}
 							else
 							{
@@ -149,7 +149,7 @@ class Canvas extends Graphic
 							_matrix.a = sx;
 							_matrix.d = sy;
 							_matrix.tx = _matrix.ty = 0;
-							if (angle != 0) _matrix.rotate(angle * HXP.RAD);
+							if (angle != 0) _matrix.rotate(angle * PV.RAD);
 
 							_midBuffers[i].draw(buffer, _matrix, _tint, blend);
 						}
@@ -164,7 +164,7 @@ class Canvas extends Graphic
 					_matrix.a = sx;
 					_matrix.d = sy;
 					_matrix.tx = _matrix.ty = 0;
-					if (angle != 0) _matrix.rotate(angle * HXP.RAD);
+					if (angle != 0) _matrix.rotate(angle * PV.RAD);
 					_matrix.tx += _point.x;
 					_matrix.ty += _point.y;
 
@@ -271,7 +271,7 @@ class Canvas extends Graphic
 			_graphics.clear();
 			_graphics.beginFill(color, alpha);
 			_graphics.drawRect(rect.x - xx, rect.y - yy, rect.width, rect.height);
-			buffer.draw(HXP.sprite);
+			buffer.draw(PV.sprite);
 			xx += _maxWidth;
 			if (xx >= _width)
 			{
@@ -295,7 +295,7 @@ class Canvas extends Graphic
 			_graphics.clear();
 			_graphics.beginBitmapFill(texture);
 			_graphics.drawRect(rect.x - xx, rect.y - yy, rect.width, rect.height);
-			buffer.draw(HXP.sprite);
+			buffer.draw(PV.sprite);
 			xx += _maxWidth;
 			if (xx >= _width)
 			{
@@ -319,7 +319,7 @@ class Canvas extends Graphic
 		{
 			_point.x = x - xx;
 			_point.y = y - yy;
-			source.render(buffer, _point, HXP.zero);
+			source.render(buffer, _point, PV.zero);
 			xx += _maxWidth;
 			if (xx >= _width)
 			{
@@ -339,9 +339,9 @@ class Canvas extends Graphic
 		value %= 0xFFFFFF;
 		if (_color == value) return _color;
 		_color = value;
-		_red = HXP.getRed(color) / 255;
-		_green = HXP.getGreen(color) / 255;
-		_blue = HXP.getBlue(color) / 255;
+		_red = PV.getRed(color) / 255;
+		_green = PV.getGreen(color) / 255;
+		_blue = PV.getBlue(color) / 255;
 
 		if (_alpha == 1 && _color == 0xFFFFFF)
 		{

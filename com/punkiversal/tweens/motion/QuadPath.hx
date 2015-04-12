@@ -170,8 +170,8 @@ class QuadPath extends Motion
 	/** @private Calculates the lenght of the curve. */
 	private function curveLength(start:Point, control:Point, finish:Point):Float
 	{
-		var a:Point = HXP.point,
-			b:Point = HXP.point2;
+		var a:Point = PV.point,
+			b:Point = PV.point2;
 		a.x = start.x - 2 * control.x + finish.x;
 		a.y = start.y - 2 * control.y + finish.y;
 		b.x = 2 * control.x - 2 * start.x;

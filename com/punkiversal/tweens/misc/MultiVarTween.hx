@@ -32,9 +32,9 @@ class MultiVarTween extends Tween
 	public function tween(object:Dynamic, properties:Dynamic, duration:Float, ease:Float -> Float = null)
 	{
 		_object = object;
-		HXP.clear(_vars);
-		HXP.clear(_start);
-		HXP.clear(_range);
+		PV.clear(_vars);
+		PV.clear(_start);
+		PV.clear(_range);
 		_target = duration;
 		_ease = ease;
 		var p:String;

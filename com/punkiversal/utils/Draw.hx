@@ -9,7 +9,7 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import com.punkiversal.Entity;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Graphic;
 import com.punkiversal.graphics.Text;
 import com.punkiversal.graphics.atlas.AtlasData;
@@ -30,17 +30,17 @@ class Draw
 	@:dox(hide)
 	public static function init()
 	{
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		if (PV.renderMode == RenderMode.HARDWARE)
 		{
 			var sprite = new Sprite();
-			HXP.stage.addChild(sprite);
+			PV.stage.addChild(sprite);
 			_graphics = sprite.graphics;
 		}
 		else
 		{
-			_graphics = HXP.sprite.graphics;
+			_graphics = PV.sprite.graphics;
 		}
-		_rect = HXP.rect;
+		_rect = PV.rect;
 	}
 
 	/**
@@ -52,17 +52,17 @@ class Draw
 	public static function setTarget(target:BitmapData, camera:Point = null, blend:BlendMode = null)
 	{
 		_target = target;
-		_camera = (camera != null) ? camera : HXP.zero;
+		_camera = (camera != null) ? camera : PV.zero;
 		Draw.blend = blend;
 	}
 
 	/**
-	 * Resets the drawing target to the default. The same as calling Draw.setTarget(HXP.buffer, HXP.camera).
+	 * Resets the drawing target to the default. The same as calling Draw.setTarget(PV.buffer, PV.camera).
 	 */
 	public static function resetTarget()
 	{
-		_target = HXP.buffer;
-		_camera = HXP.camera;
+		_target = PV.buffer;
+		_camera = PV.camera;
 		Draw.blend = null;
 		_graphics.clear();
 	}
@@ -71,11 +71,11 @@ class Draw
 	{
 		if (blend == null)
 		{
-			_target.draw(HXP.sprite);
+			_target.draw(PV.sprite);
 		}
 		else
 		{
-			_target.draw(HXP.sprite, null, null, blend);
+			_target.draw(PV.sprite, null, null, blend);
 		}
 	}
 
@@ -89,7 +89,7 @@ class Draw
 	 */
 	public static function line(x1:Int, y1:Int, x2:Int, y2:Int, color:Int = 0xFFFFFF)
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			color = 0xFF000000 | (0xFFFFFF & color);
 
@@ -196,7 +196,7 @@ class Draw
 	 */
 	public static function linePlus(x1:Int, y1:Int, x2:Int, y2:Int, color:Int = 0xFF000000, alpha:Float = 1, thick:Float = 1)
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			_graphics.clear();
 			_graphics.lineStyle(thick, color, alpha, false, LineScaleMode.NONE);
@@ -224,7 +224,7 @@ class Draw
 	 */
 	public static function rect(x:Int, y:Int, width:Int, height:Int, color:Int = 0xFFFFFF, alpha:Float = 1)
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			if (alpha >= 1 && blend == null)
 			{
@@ -264,7 +264,7 @@ class Draw
 	{
 		color = 0xFFFFFF & color;
 		
-		if (HXP.renderMode == RenderMode.BUFFER) _graphics.clear();
+		if (PV.renderMode == RenderMode.BUFFER) _graphics.clear();
 		
 		if (fill) 
 		{
@@ -278,7 +278,7 @@ class Draw
 		_graphics.drawRect(x - _camera.x, y - _camera.y, width, height);
 		_graphics.endFill();
 		
-		HXP.renderMode == RenderMode.BUFFER ? drawToScreen() : _graphics.lineStyle(0);
+		PV.renderMode == RenderMode.BUFFER ? drawToScreen() : _graphics.lineStyle(0);
 	}
 		
 	/**
@@ -290,7 +290,7 @@ class Draw
 	 */
 	public static function circle(x:Int, y:Int, radius:Int, color:Int = 0xFFFFFF)
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			color = 0xFF000000 | (0xFFFFFF & color);
 			x -= Std.int(_camera.x);
@@ -343,7 +343,7 @@ class Draw
 	 */
 	public static function circlePlus(x:Int, y:Int, radius:Float, color:Int = 0xFFFFFF, alpha:Float = 1, fill:Bool = true, thick:Int = 1)
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			_graphics.clear();
 			if (fill)
@@ -385,7 +385,7 @@ class Draw
 	 */
 	public static function hitbox(e:Entity, outline:Bool = true, color:Int = 0xFFFFFF, alpha:Float = 1)
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			if (outline)
 			{
@@ -445,7 +445,7 @@ class Draw
 	 */
 	public static function curve(x1:Int, y1:Int, x2:Int, y2:Int, x3:Int, y3:Int, thick:Float = 1, color:Int = 0, alpha:Float = 1)
 	{
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			_graphics.clear();
 			_graphics.lineStyle(thick, color, alpha);
@@ -474,19 +474,19 @@ class Draw
 		{
 			if (g.relative)
 			{
-				HXP.point.x = x;
-				HXP.point.y = y;
+				PV.point.x = x;
+				PV.point.y = y;
 			}
-			else HXP.point.x = HXP.point.y = 0;
-			HXP.point2.x = HXP.camera.x;
-			HXP.point2.y = HXP.camera.y;
-			if (HXP.renderMode == RenderMode.BUFFER) 
+			else PV.point.x = PV.point.y = 0;
+			PV.point2.x = PV.camera.x;
+			PV.point2.y = PV.camera.y;
+			if (PV.renderMode == RenderMode.BUFFER) 
 			{
-				g.render(_target, HXP.point, HXP.point2);	
+				g.render(_target, PV.point, PV.point2);	
 			} 
 			else 
 			{
-				g.renderAtlas(layer, HXP.point, HXP.point2);
+				g.renderAtlas(layer, PV.point, PV.point2);
 			}
 		}
 	}
@@ -517,7 +517,7 @@ class Draw
 	public static function text(text:String, ?x:Float = 0, ?y:Float = 0, ?options:TextOptions = null)
 	{
 		var textGfx:Text = new Text(text, x, y, 0, 0, options);
-		textGfx.render(_target, HXP.zero, _camera);
+		textGfx.render(_target, PV.zero, _camera);
 	}
 
 	// Drawing information.

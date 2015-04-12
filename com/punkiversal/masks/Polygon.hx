@@ -1,7 +1,7 @@
 package com.punkiversal.masks;
 
 import com.punkiversal.Entity;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Mask;
 import com.punkiversal.masks.Circle;
 import com.punkiversal.masks.Grid;
@@ -367,8 +367,8 @@ class Polygon extends Hitbox
 	@:dox(hide)
 	override public function debugDraw(graphics:Graphics, scaleX:Float, scaleY:Float):Void
 	{
-		var	offsetX:Float = _parent.x + _x - HXP.camera.x,
-			offsetY:Float = _parent.y + _y - HXP.camera.y;
+		var	offsetX:Float = _parent.x + _x - PV.camera.x,
+			offsetY:Float = _parent.y + _y - PV.camera.y;
 
 		graphics.beginFill(0x0000FF, .3);
 
@@ -503,7 +503,7 @@ class Polygon extends Hitbox
 	{
 		_angle += angleDelta;
 
-		angleDelta *= HXP.RAD;
+		angleDelta *= PV.RAD;
 
 		var p:Vector;
 

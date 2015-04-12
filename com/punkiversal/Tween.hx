@@ -70,7 +70,7 @@ class Tween extends EventDispatcher
 	@:dox(hide)
 	public function update()
 	{
-		_time += HXP.fixed ? 1 : HXP.elapsed;
+		_time += PV.fixed ? 1 : PV.elapsed;
 		_t = _time / _target;
 		if (_ease != null && _t > 0 && _t < 1) _t = _ease(_t);
 		if (_time >= _target)

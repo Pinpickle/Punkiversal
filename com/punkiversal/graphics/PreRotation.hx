@@ -1,6 +1,6 @@
 package com.punkiversal.graphics;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Graphic;
 
 import flash.display.Bitmap;
@@ -30,7 +30,7 @@ class PreRotation extends Image
 		frameAngle = 0;
 		_last = _current = -1;
 
-		if (HXP.renderMode == RenderMode.BUFFER)
+		if (PV.renderMode == RenderMode.BUFFER)
 		{
 			var r:BitmapData = _rotated.get(source);
 			var size = _sizes.get(source);
@@ -39,8 +39,8 @@ class PreRotation extends Image
 			if (r == null)
 			{
 				// produce a rotated bitmap strip
-				var temp:BitmapData = HXP.getBitmap(source);
-				size = Math.ceil(HXP.distance(0, 0, temp.width, temp.height));
+				var temp:BitmapData = PV.getBitmap(source);
+				size = Math.ceil(PV.distance(0, 0, temp.width, temp.height));
 				_sizes.set(source, size);
 				_frame.width = _frame.height = size;
 				var width:Int = Std.int(_frame.width * frameCount),
@@ -50,9 +50,9 @@ class PreRotation extends Image
 					width = Std.int(_MAX_WIDTH - (_MAX_WIDTH % _frame.width));
 					height = Std.int(Math.ceil(frameCount / (width / _frame.width)) * _frame.height);
 				}
-				r = HXP.createBitmap(width, height, true);
+				r = PV.createBitmap(width, height, true);
 				_rotated.set(source, r);
-				var m:Matrix = HXP.matrix,
+				var m:Matrix = PV.matrix,
 					a:Float = 0,
 					aa:Float = Math.PI * 2 / -frameCount,
 					ox:Int = Std.int(temp.width / 2),

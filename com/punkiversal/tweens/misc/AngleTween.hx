@@ -1,6 +1,6 @@
 ﻿package com.punkiversal.tweens.misc;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Tween;
 import com.punkiversal.utils.Ease;
 
@@ -39,7 +39,7 @@ class AngleTween extends Tween
 			a:Float = Math.abs(d);
 		if (a > 181) _range = (360 - a) * (d > 0 ? -1 : 1);
 		else if (a < 179) _range = d;
-		else _range = HXP.choose([180, -180]);
+		else _range = PV.choose([180, -180]);
 		_target = duration;
 		_ease = ease;
 		start();

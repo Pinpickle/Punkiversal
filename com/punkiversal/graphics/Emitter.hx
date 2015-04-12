@@ -3,7 +3,7 @@ package com.punkiversal.graphics;
 import com.punkiversal.Graphic;
 import com.punkiversal.graphics.atlas.Atlas;
 import com.punkiversal.graphics.atlas.AtlasRegion;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.RenderMode;
 import com.punkiversal.utils.Input;
 import com.punkiversal.utils.Key;
@@ -90,7 +90,7 @@ class Emitter extends Graphic
 		if (_particle == null) return;
 
 		// particle info
-		var e:Float = HXP.fixed ? 1 / HXP.assignedFrameRate : HXP.elapsed,
+		var e:Float = PV.fixed ? 1 / PV.assignedFrameRate : PV.elapsed,
 			p:Particle = _particle,
 			n:Particle;
 
@@ -220,7 +220,7 @@ class Emitter extends Graphic
 				_tint.greenMultiplier = type._green + type._greenRange * td;
 				_tint.blueMultiplier  = type._blue + type._blueRange * td;
 				type._buffer.fillRect(type._bufferRect, 0);
-				type._buffer.copyPixels(_source, rect, HXP.zero);
+				type._buffer.copyPixels(_source, rect, PV.zero);
 				type._buffer.colorTransform(type._bufferRect, _tint);
 
 				// draw particle
@@ -236,8 +236,8 @@ class Emitter extends Graphic
 	@:dox(hide)
 	override public function renderAtlas(layer:Int, point:Point, camera:Point)
 	{
-		var fsx:Float = HXP.screen.fullScaleX,
-			fsy:Float = HXP.screen.fullScaleY;
+		var fsx:Float = PV.screen.fullScaleX,
+			fsy:Float = PV.screen.fullScaleY;
 
 		renderParticle(function(type:ParticleType, t:Float, td:Float) {
 			var frameIndex:Int = type._frames[Std.int(td * type._frames.length) % type._frames.length];
@@ -361,14 +361,14 @@ class Emitter extends Graphic
 
 		p._type = type;
 		p._time = 0;
-		p._duration = type._duration + type._durationRange * HXP.random;
-		var a:Float = type._angle + type._angleRange * HXP.random,
-			d:Float = type._distance + type._distanceRange * HXP.random;
+		p._duration = type._duration + type._durationRange * PV.random;
+		var a:Float = type._angle + type._angleRange * PV.random,
+			d:Float = type._distance + type._distanceRange * PV.random;
 		p._moveX = Math.cos(a) * d;
 		p._moveY = Math.sin(a) * d;
 		p._x = x;
 		p._y = y;
-		p._gravity = type._gravity + type._gravityRange * HXP.random;
+		p._gravity = type._gravity + type._gravityRange * PV.random;
 		particleCount ++;
 		return (_particle = p);
 	}
@@ -401,7 +401,7 @@ class Emitter extends Graphic
 	 */
 	public function emitInRectangle(name:String, x:Float, y:Float, width:Float ,height:Float):Particle
 	{
-		return emit(name, x + HXP.random * width, y + HXP.random * height);
+		return emit(name, x + PV.random * width, y + PV.random * height);
 	}
 
 	/**

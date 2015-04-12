@@ -1,5 +1,5 @@
 import com.punkiversal.Engine;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 
 class {{PROJECT_CLASS}} extends Engine
 {
@@ -7,9 +7,9 @@ class {{PROJECT_CLASS}} extends Engine
 	override public function init()
 	{
 #if debug
-		HXP.console.enable();
+		PV.console.enable();
 #end
-		HXP.scene = new MainScene();
+		PV.scene = new MainScene();
 	}
 
 	public static function main() { new {{PROJECT_CLASS}}(); }

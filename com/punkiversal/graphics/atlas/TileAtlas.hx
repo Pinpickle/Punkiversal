@@ -1,6 +1,6 @@
 package com.punkiversal.graphics.atlas;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.ds.Either;
 import com.punkiversal.graphics.atlas.AtlasData;
 import flash.display.BitmapData;
@@ -42,20 +42,20 @@ class TileAtlas extends Atlas
 		var cols:Int = Math.floor(_data.width / tileWidth);
 		var rows:Int = Math.floor(_data.height / tileHeight);
 
-		HXP.rect.width = tileWidth;
-		HXP.rect.height = tileHeight;
+		PV.rect.width = tileWidth;
+		PV.rect.height = tileHeight;
 
-		HXP.point.x = HXP.point.y = 0;
+		PV.point.x = PV.point.y = 0;
 
 		for (y in 0...rows)
 		{
-			HXP.rect.y = y * (tileHeight+tileMarginHeight);
+			PV.rect.y = y * (tileHeight+tileMarginHeight);
 
 			for (x in 0...cols)
 			{
-				HXP.rect.x = x * (tileWidth+tileMarginWidth);
+				PV.rect.x = x * (tileWidth+tileMarginWidth);
 
-				_regions.push(_data.createRegion(HXP.rect, HXP.point));
+				_regions.push(_data.createRegion(PV.rect, PV.point));
 			}
 		}
 	}

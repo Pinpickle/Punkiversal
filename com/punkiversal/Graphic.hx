@@ -1,6 +1,6 @@
 package com.punkiversal;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.ds.Either;
 import com.punkiversal.graphics.atlas.Atlas;
 import com.punkiversal.graphics.atlas.TileAtlas;
@@ -20,16 +20,16 @@ abstract TileType(Either<BitmapData, TileAtlas>)
 	@:to inline function get_type() return this;
 
 	@:dox(hide) @:from public static inline function fromString(tileset:String) {
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		if (PV.renderMode == RenderMode.HARDWARE)
 			return new TileType(Right(new TileAtlas(tileset)));
 		else
-			return new TileType(Left(HXP.getBitmap(tileset)));
+			return new TileType(Left(PV.getBitmap(tileset)));
 	}
 	@:dox(hide) @:from public static inline function fromTileAtlas(atlas:TileAtlas) {
 		return new TileType(Right(atlas));
 	}
 	@:dox(hide) @:from public static inline function fromBitmapData(bd:BitmapData) {
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		if (PV.renderMode == RenderMode.HARDWARE)
 			return new TileType(Right(new TileAtlas(bd)));
 		else
 			return new TileType(Left(bd));
@@ -49,10 +49,10 @@ abstract ImageType(Either<BitmapData, AtlasRegion>)
 	@:to inline function get_type() return this;
 
 	@:dox(hide) @:from public static inline function fromString(s:String) {
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		if (PV.renderMode == RenderMode.HARDWARE)
 			return new ImageType(Right(Atlas.loadImageAsRegion(s)));
 		else
-			return new ImageType(Left(HXP.getBitmap(s)));
+			return new ImageType(Left(PV.getBitmap(s)));
 	}
 	@:dox(hide) @:from public static inline function fromTileAtlas(atlas:TileAtlas) {
 		return new ImageType(Right(atlas.getRegion(0)));
@@ -61,7 +61,7 @@ abstract ImageType(Either<BitmapData, AtlasRegion>)
 		return new ImageType(Right(region));
 	}
 	@:dox(hide) @:from public static inline function fromBitmapData(bd:BitmapData) {
-		if (HXP.renderMode == RenderMode.HARDWARE)
+		if (PV.renderMode == RenderMode.HARDWARE)
 			return new ImageType(Right(Atlas.loadImageAsRegion(bd)));
 		else
 			return new ImageType(Left(bd));

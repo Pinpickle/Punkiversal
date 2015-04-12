@@ -87,8 +87,8 @@ class MaskLabel extends VisibleLabel
 	override private function onClick(e:MouseEvent)
 	{
 		super.onClick(e);
-		HXP.console.debugDraw = display;
-		HXP.console.update();
+		PV.console.debugDraw = display;
+		PV.console.update();
 	}
 }
 
@@ -116,9 +116,9 @@ class LayerLabel extends VisibleLabel
 	override private function onClick(e:MouseEvent)
 	{
 		super.onClick(e);
-		HXP.scene.showLayer(layer, display);
-		HXP.engine.render();
-		HXP.console.debugDraw = HXP.console.debugDraw; // redraw masks
+		PV.scene.showLayer(layer, display);
+		PV.engine.render();
+		PV.console.debugDraw = PV.console.debugDraw; // redraw masks
 	}
 
 }
@@ -144,7 +144,7 @@ class LayerList extends Sprite
 		var font = Assets.getFont("font/04B_03__.ttf");
 		if (font == null)
 		{
-			font = Assets.getFont(HXP.defaultFont);
+			font = Assets.getFont(PV.defaultFont);
 		}
 		_textFormat = new TextFormat(font.fontName, 16, 0xFFFFFF);
 
@@ -174,7 +174,7 @@ class LayerList extends Sprite
 		}
 		keys.sort(layerSort);
 
-		var i = 0, scene = HXP.scene;
+		var i = 0, scene = PV.scene;
 		for (layer in keys)
 		{
 			var label:LayerLabel;

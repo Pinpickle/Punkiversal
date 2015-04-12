@@ -5,7 +5,7 @@ import flash.display.BitmapData;
 import flash.geom.Point;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.graphics.Image;
 
 /**
@@ -91,7 +91,7 @@ class Imagemask extends Pixelmask
 		var matrix = new Matrix(sx, 0, 0, sy,
 			-_source.originX * sx,
 			-_source.originY * sy);
-		matrix.rotate(_source.angle * HXP.RAD);
+		matrix.rotate(_source.angle * PV.RAD);
 
 		var point = new Point(0, 0);
 		var p1 = matrix.transformPoint(point);

@@ -1,7 +1,7 @@
 package com.punkiversal.debug;
 
 import com.punkiversal.Entity;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.utils.Input;
 import com.punkiversal.utils.Key;
 
@@ -39,7 +39,7 @@ enum TraceCapture
 /**
  * Console used for debugging, shows entities and their masks.
  * 
- * Use `HXP.console`.enable to enable it.
+ * Use `PV.console`.enable to enable it.
  */
 class Console
 {
@@ -64,7 +64,7 @@ class Console
 		var font = Assets.getFont("font/04B_03__.ttf");
 		if (font == null)
 		{
-			font = Assets.getFont(HXP.defaultFont);
+			font = Assets.getFont(PV.defaultFont);
 		}
 		_format = new TextFormat(font.fontName, 8, 0xFFFFFF);
 		_back = new Bitmap();
@@ -179,7 +179,7 @@ class Console
 	{
 		if (!_visible)
 		{
-			HXP.stage.addChild(_sprite);
+			PV.stage.addChild(_sprite);
 			_visible = true;
 		}
 	}
@@ -191,7 +191,7 @@ class Console
 	{
 		if (_visible)
 		{
-			HXP.stage.removeChild(_sprite);
+			PV.stage.removeChild(_sprite);
 			_visible = false;
 		}
 	}
@@ -225,7 +225,7 @@ class Console
 		// Enable it and add the Sprite to the stage.
 		_enabled = true;
 		_visible = true;
-		HXP.stage.addChild(_sprite);
+		PV.stage.addChild(_sprite);
 
 		// Used to determine some text sizing.
 		var big:Bool = width >= BIG_WIDTH_THRESHOLD;
@@ -373,7 +373,7 @@ class Console
 		debug = true;
 
 		// redraws the logo
-		HXP.stage.addEventListener(Event.RESIZE, onResize);
+		PV.stage.addEventListener(Event.RESIZE, onResize);
 		onResize(null);
 
 		// Set the state to unpaused.
@@ -382,7 +382,7 @@ class Console
 		if (trace_capture == TraceCapture.Yes)
 			Log.trace = traceLog;
 
-		LOG.push("-- Punkiversal v" + HXP.VERSION + " --");
+		LOG.push("-- Punkiversal v" + PV.VERSION + " --");
 		if (_enabled && _sprite.visible) updateLog();
 	}
 
@@ -393,12 +393,12 @@ class Console
 		{
 			_back.bitmapData.dispose();
 		}
-		_back.bitmapData = HXP.createBitmap(width, height, true, 0xFFFFFFFF);
-		HXP.matrix.identity();
-		HXP.matrix.tx = Math.max((_back.bitmapData.width - _bmpLogo.width) / 2, 0);
-		HXP.matrix.ty = Math.max((_back.bitmapData.height - _bmpLogo.height) / 2, 0);
-		HXP.matrix.scale(Math.min(width / _back.bitmapData.width, 1), Math.min(height / _back.bitmapData.height, 1));
-		_back.bitmapData.draw(_bmpLogo, HXP.matrix, null, BlendMode.MULTIPLY);
+		_back.bitmapData = PV.createBitmap(width, height, true, 0xFFFFFFFF);
+		PV.matrix.identity();
+		PV.matrix.tx = Math.max((_back.bitmapData.width - _bmpLogo.width) / 2, 0);
+		PV.matrix.ty = Math.max((_back.bitmapData.height - _bmpLogo.height) / 2, 0);
+		PV.matrix.scale(Math.min(width / _back.bitmapData.width, 1), Math.min(height / _back.bitmapData.height, 1));
+		_back.bitmapData.draw(_bmpLogo, PV.matrix, null, BlendMode.MULTIPLY);
 		_back.bitmapData.draw(_back.bitmapData, null, null, BlendMode.INVERT);
 		_back.bitmapData.colorTransform(_back.bitmapData.rect, new ColorTransform(1, 1, 1, 0.5));
 		updateLog();
@@ -442,7 +442,7 @@ class Console
 		_entRead.x = width - _entReadText.width;
 		_layerList.x = width - _layerList.width - 20;
 		_layerList.y = (height - _layerList.height) / 2;
-		_layerList.visible = HXP.engine.paused && _debug;
+		_layerList.visible = PV.engine.paused && _debug;
 
 		// Update buttons.
 		if (_butRead.visible)
@@ -455,10 +455,10 @@ class Console
 			// While in debug mode.
 			if (_debug)
 			{
-				updateEntityLists(HXP.scene.count != ENTITY_LIST.length);
+				updateEntityLists(PV.scene.count != ENTITY_LIST.length);
 
 				// While the game is paused.
-				if (HXP.engine.paused)
+				if (PV.engine.paused)
 				{
 					// When the mouse is pressed.
 					if (Input.mousePressed)
@@ -542,7 +542,7 @@ class Console
 
 		// Set the console to paused.
 		_paused = value;
-		HXP.engine.paused = value;
+		PV.engine.paused = value;
 
 		// Panel visibility.
 		_back.visible = value;
@@ -564,9 +564,9 @@ class Console
 			_debRead.visible = false;
 			_logRead.visible = true;
 			updateLog();
-			HXP.clear(ENTITY_LIST);
-			HXP.clear(SCREEN_LIST);
-			HXP.clear(SELECT_LIST);
+			PV.clear(ENTITY_LIST);
+			PV.clear(SCREEN_LIST);
+			PV.clear(SELECT_LIST);
 		}
 		return _paused;
 	}
@@ -596,8 +596,8 @@ class Console
 	/** @private Steps the frame ahead. */
 	private function stepFrame()
 	{
-		HXP.engine.update();
-		HXP.engine.render();
+		PV.engine.update();
+		PV.engine.render();
 		updateEntityCount();
 		updateEntityLists();
 		renderEntities();
@@ -628,7 +628,7 @@ class Console
 			e.x += xDelta;
 			e.y += yDelta;
 		}
-		HXP.engine.render();
+		PV.engine.render();
 		renderEntities();
 		updateEntityLists(true);
 	}
@@ -653,9 +653,9 @@ class Console
 	/** @private Pans the camera. */
 	private function panCamera(xDelta:Int, yDelta:Int)
 	{
-		HXP.camera.x += xDelta;
-		HXP.camera.y += yDelta;
-		HXP.engine.render();
+		PV.camera.x += xDelta;
+		PV.camera.y += yDelta;
+		PV.engine.render();
 		updateEntityLists(true);
 		renderEntities();
 	}
@@ -663,9 +663,9 @@ class Console
 	/** @private Sets the camera position. */
 	private function setCamera(x:Int, y:Int)
 	{
-		HXP.camera.x = x;
-		HXP.camera.y = y;
-		HXP.engine.render();
+		PV.camera.x = x;
+		PV.camera.y = y;
+		PV.engine.render();
 		updateEntityLists(true);
 		renderEntities();
 	}
@@ -708,24 +708,24 @@ class Console
 		if (rect.height < 0) rect.y -= (rect.height = -rect.height);
 		else if (rect.height == 0) rect.height = 1;
 
-		HXP.rect.width = HXP.rect.height = 6;
-		var sx:Float = HXP.screen.fullScaleX,
-			sy:Float = HXP.screen.fullScaleY,
+		PV.rect.width = PV.rect.height = 6;
+		var sx:Float = PV.screen.fullScaleX,
+			sy:Float = PV.screen.fullScaleY,
 			e:Entity;
 
 		if (!Input.check(Key.CONTROL))
 		{
 			// Replace selections with new selections.
-			HXP.clear(SELECT_LIST);
+			PV.clear(SELECT_LIST);
 		}
 		// Append/Remove selected Entitites.
 		for (e in SCREEN_LIST)
 		{
-			HXP.rect.x = (e.x - HXP.camera.x) * sx - 3;
-			HXP.rect.y = (e.y - HXP.camera.y) * sy - 3;
-			if (rect.intersects(HXP.rect))
+			PV.rect.x = (e.x - PV.camera.x) * sx - 3;
+			PV.rect.y = (e.y - PV.camera.y) * sy - 3;
+			if (rect.intersects(PV.rect))
 			{
-				if (HXP.indexOf(SELECT_LIST, e) < 0)
+				if (PV.indexOf(SELECT_LIST, e) < 0)
 				{
 					SELECT_LIST.push(e);
 				}
@@ -742,7 +742,7 @@ class Console
 	{
 		// capture number selected before clearing selection list
 		var numSelected = SELECT_LIST.length;
-		HXP.clear(SELECT_LIST);
+		PV.clear(SELECT_LIST);
 
 		// if the number of entities on screen is the same as selected, leave the list cleared
 		if (numSelected != SCREEN_LIST.length)
@@ -762,24 +762,24 @@ class Console
 	private function updateScrolling()
 	{
 		_scrolling = Input.mouseDown;
-		_logScroll = HXP.scaleClamp(Input.mouseFlashY, _logBarGlobal.y, _logBarGlobal.bottom, 0, 1);
+		_logScroll = PV.scaleClamp(Input.mouseFlashY, _logBarGlobal.y, _logBarGlobal.bottom, 0, 1);
 		updateLog();
 	}
 
 	/** @private Moves Entities with the arrow keys. */
 	private function updateKeyMoving()
 	{
-		HXP.point.x = (Input.pressed(Key.RIGHT) ? 1 : 0) - (Input.pressed(Key.LEFT) ? 1 : 0);
-		HXP.point.y = (Input.pressed(Key.DOWN) ? 1 : 0) - (Input.pressed(Key.UP) ? 1 : 0);
-		if (HXP.point.x != 0 || HXP.point.y != 0) moveSelected(Std.int(HXP.point.x), Std.int(HXP.point.y));
+		PV.point.x = (Input.pressed(Key.RIGHT) ? 1 : 0) - (Input.pressed(Key.LEFT) ? 1 : 0);
+		PV.point.y = (Input.pressed(Key.DOWN) ? 1 : 0) - (Input.pressed(Key.UP) ? 1 : 0);
+		if (PV.point.x != 0 || PV.point.y != 0) moveSelected(Std.int(PV.point.x), Std.int(PV.point.y));
 	}
 
 	/** @private Pans the camera with the arrow keys. */
 	private function updateKeyPanning()
 	{
-		HXP.point.x = (Input.check(Key.RIGHT) ? 1 : 0) - (Input.check(Key.LEFT) ? 1 : 0);
-		HXP.point.y = (Input.check(Key.DOWN) ? 1 : 0) - (Input.check(Key.UP) ? 1 : 0);
-		if (HXP.point.x != 0 || HXP.point.y != 0) panCamera(Std.int(HXP.point.x), Std.int(HXP.point.y));
+		PV.point.x = (Input.check(Key.RIGHT) ? 1 : 0) - (Input.check(Key.LEFT) ? 1 : 0);
+		PV.point.y = (Input.check(Key.DOWN) ? 1 : 0) - (Input.check(Key.UP) ? 1 : 0);
+		if (PV.point.x != 0 || PV.point.y != 0) panCamera(Std.int(PV.point.x), Std.int(PV.point.y));
 	}
 
 	/** @private Update the Entity list information. */
@@ -788,8 +788,8 @@ class Console
 		// If the list should be re-populated.
 		if (fetchList)
 		{
-			HXP.clear(ENTITY_LIST);
-			HXP.scene.getAll(ENTITY_LIST);
+			PV.clear(ENTITY_LIST);
+			PV.scene.getAll(ENTITY_LIST);
 
 			for (key in LAYER_LIST.keys())
 			{
@@ -798,11 +798,11 @@ class Console
 		}
 
 		// Update the list of Entities on screen.
-		HXP.clear(SCREEN_LIST);
+		PV.clear(SCREEN_LIST);
 		for (e in ENTITY_LIST)
 		{
 			var layer = e.layer;
-			if (e.onCamera && HXP.scene.layerVisible(layer))
+			if (e.onCamera && PV.scene.layerVisible(layer))
 				SCREEN_LIST.push(e);
 
 			if (fetchList)
@@ -821,13 +821,13 @@ class Console
 		var e:Entity;
 		// If debug mode is on.
 		_entScreen.visible = _debug;
-		_entScreen.x = HXP.screen.x;
-		_entScreen.y = HXP.screen.y;
+		_entScreen.x = PV.screen.x;
+		_entScreen.y = PV.screen.y;
 		if (_debug)
 		{
 			var g:Graphics = _entScreen.graphics,
-				sx:Float = HXP.screen.fullScaleX,
-				sy:Float = HXP.screen.fullScaleY,
+				sx:Float = PV.screen.fullScaleX,
+				sy:Float = PV.screen.fullScaleY,
 				colorHitbox = 0xFFFFFF,
 				colorPosition = 0xFFFFFF;
 			g.clear();
@@ -837,7 +837,7 @@ class Console
 				var graphicScrollY = e.graphic != null ? e.graphic.scrollY : 1;
 
 				// If the Entity is not selected.
-				if (HXP.indexOf(SELECT_LIST, e) < 0)
+				if (PV.indexOf(SELECT_LIST, e) < 0)
 				{
 					colorHitbox = 0xFF0000;
 					colorPosition = 0x00FF00;
@@ -852,7 +852,7 @@ class Console
 				if (e.width != 0 && e.height != 0)
 				{
 					g.lineStyle(1, colorHitbox);
-					g.drawRect((e.x - e.originX - HXP.camera.x * graphicScrollX) * sx, (e.y - e.originY - HXP.camera.y * graphicScrollY) * sy, e.width * sx, e.height * sy);
+					g.drawRect((e.x - e.originX - PV.camera.x * graphicScrollX) * sx, (e.y - e.originY - PV.camera.y * graphicScrollY) * sy, e.width * sx, e.height * sy);
 
 					if (debugDraw && e.mask != null)
 					{
@@ -861,7 +861,7 @@ class Console
 					}
 				}
 				g.lineStyle(1, colorPosition);
-				g.drawCircle((e.x - HXP.camera.x * graphicScrollX) * sx, (e.y - HXP.camera.y * graphicScrollY) * sy, 3);
+				g.drawCircle((e.x - PV.camera.x * graphicScrollX) * sx, (e.y - PV.camera.y * graphicScrollY) * sy, 3);
 			}
 		}
 	}
@@ -973,16 +973,16 @@ class Console
 	/** @private Update the FPS/frame timing panel text. */
 	private function updateFPSRead()
 	{
-		_fpsReadText.text = "FPS: " + Std.int(HXP.frameRate);
+		_fpsReadText.text = "FPS: " + Std.int(PV.frameRate);
 		_fpsInfoText0.text =
-			"Update: " + Std.string(HXP._updateTime) + "ms\n" +
-			"Render: " + Std.string(HXP._renderTime) + "ms";
+			"Update: " + Std.string(PV._updateTime) + "ms\n" +
+			"Render: " + Std.string(PV._renderTime) + "ms";
 		_fpsInfoText1.text =
-			"System: " + Std.string(HXP._systemTime) + "ms\n" +
-			"Game: " + Std.string(HXP._gameTime) + "ms";
+			"System: " + Std.string(PV._systemTime) + "ms\n" +
+			"Game: " + Std.string(PV._gameTime) + "ms";
 #if !js
 		_memReadText.text =
-			(width >= BIG_WIDTH_THRESHOLD ? "Mem: " : "") + HXP.round(flash.system.System.totalMemory / 1024 / 1024, 2) + "MB";
+			(width >= BIG_WIDTH_THRESHOLD ? "Mem: " : "") + PV.round(flash.system.System.totalMemory / 1024 / 1024, 2) + "MB";
 #end
 	}
 
@@ -995,8 +995,8 @@ class Console
 
 		// Update the Debug read text.
 		var s:String =
-			"Mouse: " + Std.string(HXP.scene.mouseX) + ", " + Std.string(HXP.scene.mouseY) +
-			"\nCamera: " + Std.string(HXP.camera.x) + ", " + Std.string(HXP.camera.y);
+			"Mouse: " + Std.string(PV.scene.mouseX) + ", " + Std.string(PV.scene.mouseY) +
+			"\nCamera: " + Std.string(PV.camera.x) + ", " + Std.string(PV.camera.y);
 		if (SELECT_LIST.length != 0)
 		{
 			if (SELECT_LIST.length > 1)
@@ -1048,7 +1048,7 @@ class Console
 	/** @private Updates the Entity count text. */
 	private function updateEntityCount()
 	{
-		_entReadText.text = Std.string(HXP.scene.count) + " Entities";
+		_entReadText.text = Std.string(PV.scene.count) + " Entities";
 	}
 
 	/** @private Updates the Button panel. */
@@ -1058,8 +1058,8 @@ class Console
 		_butRead.x = (width >= BIG_WIDTH_THRESHOLD ? _fpsInfo.x + _fpsInfoText0.width + _fpsInfoText1.width + Std.int((_entRead.x - (_fpsInfo.x + _fpsInfoText0.width + _fpsInfoText1.width)) / 2) - 30 : 160 + 20);
 		_butDebug.visible = _paused && !_debug;
 		_butOutput.visible = _paused && _debug;
-		_butPlay.visible = HXP.engine.paused;
-		_butPause.visible = !HXP.engine.paused;
+		_butPlay.visible = PV.engine.paused;
+		_butPause.visible = !PV.engine.paused;
 		_butStep.visible = _paused;
 
 		// Debug/Output button.
@@ -1076,7 +1076,7 @@ class Console
 			_butPlay.alpha = _butPause.alpha = 1;
 			if (Input.mousePressed)
 			{
-				HXP.engine.paused = !HXP.engine.paused;
+				PV.engine.paused = !PV.engine.paused;
 				renderEntities();
 			}
 		}
@@ -1114,13 +1114,13 @@ class Console
 	 * Get the unscaled screen width for the Console.
 	 */
 	public var width(get, never):Int;
-	private function get_width():Int { return HXP.windowWidth; }
+	private function get_width():Int { return PV.windowWidth; }
 
 	/**
 	 * Get the unscaled screen height for the Console.
 	 */
 	public var height(get, never):Int;
-	private function get_height():Int { return HXP.windowHeight; }
+	private function get_height():Int { return PV.windowHeight; }
 
 	// Console state information.
 	private var _enabled:Bool;

@@ -45,7 +45,7 @@ class Entity extends Tweener
 	private inline function get_x():Float
 	{
 		if (followCamera)
-			return x + HXP.camera.x;
+			return x + PV.camera.x;
 		else
 			return x;
 	}
@@ -61,7 +61,7 @@ class Entity extends Tweener
 	private inline function get_y():Float
 	{
 		if (followCamera)
-			return y + HXP.camera.y;
+			return y + PV.camera.y;
 		else
 			return y;
 	}
@@ -123,8 +123,8 @@ class Entity extends Tweener
 		_name = "";
 
 		HITBOX = new Mask();
-		_point = HXP.point;
-		_camera = HXP.point2;
+		_point = PV.point;
+		_camera = PV.point2;
 
 		layer = 0;
 
@@ -163,11 +163,11 @@ class Entity extends Tweener
 				_point.y = y;
 			}
 			else _point.x = _point.y = 0;
-			_camera.x = _scene == null ? HXP.camera.x : _scene.camera.x;
-			_camera.y = _scene == null ? HXP.camera.y : _scene.camera.y;
+			_camera.x = _scene == null ? PV.camera.x : _scene.camera.x;
+			_camera.y = _scene == null ? PV.camera.y : _scene.camera.y;
 			if (_graphic.blit)
 			{
-				_graphic.render((renderTarget != null) ? renderTarget : HXP.buffer, _point, _camera);
+				_graphic.render((renderTarget != null) ? renderTarget : PV.buffer, _point, _camera);
 			}
 			else
 			{
@@ -318,11 +318,11 @@ class Entity extends Tweener
 			if (_mask == null) return true;
 			_x = this.x; _y = this.y;
 			this.x = x; this.y = y;
-			HXP.entity.x = rX;
-			HXP.entity.y = rY;
-			HXP.entity.width = Std.int(rWidth);
-			HXP.entity.height = Std.int(rHeight);
-			if (_mask.collide(HXP.entity.HITBOX))
+			PV.entity.x = rX;
+			PV.entity.y = rY;
+			PV.entity.width = Std.int(rWidth);
+			PV.entity.height = Std.int(rHeight);
+			if (_mask.collide(PV.entity.HITBOX))
 			{
 				this.x = _x; this.y = _y;
 				return true;
@@ -351,11 +351,11 @@ class Entity extends Tweener
 			if (_mask == null) return true;
 			_x = this.x; _y = this.y;
 			this.x = x; this.y = y;
-			HXP.entity.x = pX;
-			HXP.entity.y = pY;
-			HXP.entity.width = 1;
-			HXP.entity.height = 1;
-			if (_mask.collide(HXP.entity.HITBOX))
+			PV.entity.x = pX;
+			PV.entity.y = pY;
+			PV.entity.width = 1;
+			PV.entity.height = 1;
+			if (_mask.collide(PV.entity.HITBOX))
 			{
 				this.x = _x; this.y = _y;
 				return true;
@@ -444,7 +444,7 @@ class Entity extends Tweener
 		}
 		else
 		{
-			return collideRect(x, y, _scene.camera.x, _scene.camera.y, HXP.width, HXP.height);
+			return collideRect(x, y, _scene.camera.x, _scene.camera.y, PV.width, PV.height);
 		}
 	}
 
@@ -689,7 +689,7 @@ class Entity extends Tweener
 	public inline function distanceFrom(e:Entity, useHitboxes:Bool = false):Float
 	{
 		if (!useHitboxes) return Math.sqrt((x - e.x) * (x - e.x) + (y - e.y) * (y - e.y));
-		else return HXP.distanceRects(x - originX, y - originY, width, height, e.x - e.originX, e.y - e.originY, e.width, e.height);
+		else return PV.distanceRects(x - originX, y - originY, width, height, e.x - e.originX, e.y - e.originY, e.width, e.height);
 	}
 
 	/**
@@ -702,7 +702,7 @@ class Entity extends Tweener
 	public inline function distanceToPoint(px:Float, py:Float, useHitbox:Bool = false):Float
 	{
 		if (!useHitbox) return Math.sqrt((x - px) * (x - px) + (y - py) * (y - py));
-		else return HXP.distanceRectPoint(px, py, x - originX, y - originY, width, height);
+		else return PV.distanceRectPoint(px, py, x - originX, y - originY, width, height);
 	}
 
 	/**
@@ -715,7 +715,7 @@ class Entity extends Tweener
 	 */
 	public inline function distanceToRect(rx:Float, ry:Float, rwidth:Float, rheight:Float):Float
 	{
-		return HXP.distanceRects(rx, ry, rwidth, rheight, x - originX, y - originY, width, height);
+		return PV.distanceRects(rx, ry, rwidth, rheight, x - originX, y - originY, width, height);
 	}
 
 	/**
@@ -835,7 +835,7 @@ class Entity extends Tweener
 	 */
 	public inline function moveAtAngle(angle:Float, amount:Float, solidType:SolidType = null, sweep:Bool = false):Void
 	{
-		angle *= HXP.RAD;
+		angle *= PV.RAD;
 		moveBy(Math.cos(angle) * amount, Math.sin(angle) * amount, solidType, sweep);
 	}
 

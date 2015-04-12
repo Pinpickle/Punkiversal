@@ -4,7 +4,7 @@ import flash.display.BitmapData;
 import flash.display.Graphics;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Graphic;
 
 /**
@@ -21,7 +21,7 @@ class TiledImage extends Image
 	 */
 	public function new(texture:ImageType, width:Int = 0, height:Int = 0, clipRect:Rectangle = null)
 	{
-		_graphics = HXP.sprite.graphics;
+		_graphics = PV.sprite.graphics;
 		_offsetX = _offsetY = 0;
 		_width = width;
 		_height = height;
@@ -33,7 +33,7 @@ class TiledImage extends Image
 	{
 		if (_width == 0) _width = Std.int(_sourceRect.width);
 		if (_height == 0) _height = Std.int(_sourceRect.height);
-		_buffer = HXP.createBitmap(_width, _height, true);
+		_buffer = PV.createBitmap(_width, _height, true);
 		_bufferRect = _buffer.rect;
 	}
 
@@ -46,21 +46,21 @@ class TiledImage extends Image
 			if (_source == null) return;
 			if (_texture == null)
 			{
-				_texture = HXP.createBitmap(Std.int(_sourceRect.width), Std.int(_sourceRect.height), true);
-				_texture.copyPixels(_source, _sourceRect, HXP.zero);
+				_texture = PV.createBitmap(Std.int(_sourceRect.width), Std.int(_sourceRect.height), true);
+				_texture.copyPixels(_source, _sourceRect, PV.zero);
 			}
 			_buffer.fillRect(_bufferRect, 0);
 			_graphics.clear();
 			if (_offsetX != 0 || _offsetY != 0)
 			{
-				HXP.matrix.identity();
-				HXP.matrix.tx = Math.round(_offsetX);
-				HXP.matrix.ty = Math.round(_offsetY);
-				_graphics.beginBitmapFill(_texture, HXP.matrix);
+				PV.matrix.identity();
+				PV.matrix.tx = Math.round(_offsetX);
+				PV.matrix.ty = Math.round(_offsetY);
+				_graphics.beginBitmapFill(_texture, PV.matrix);
 			}
 			else _graphics.beginBitmapFill(_texture);
 			_graphics.drawRect(0, 0, _width, _height);
-			_buffer.draw(HXP.sprite, null, _tint);
+			_buffer.draw(PV.sprite, null, _tint);
 		}
 	}
 
@@ -74,8 +74,8 @@ class TiledImage extends Image
 
 		// TODO: properly handle flipped tiled spritemaps
 		if (_flipped) _point.x += _sourceRect.width;
-		var fsx = HXP.screen.fullScaleX,
-			fsy = HXP.screen.fullScaleY,
+		var fsx = PV.screen.fullScaleX,
+			fsy = PV.screen.fullScaleY,
 			sx = fsx * scale * scaleX,
 			sy = fsy * scale * scaleY,
 			x = 0.0, y = 0.0;

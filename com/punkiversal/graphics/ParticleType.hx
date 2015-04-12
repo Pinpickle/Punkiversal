@@ -1,6 +1,6 @@
 package com.punkiversal.graphics;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.utils.Ease;
 
 import flash.display.BitmapData;
@@ -52,10 +52,10 @@ class ParticleType
 	 */
 	public function setMotion(angle:Float, distance:Float, duration:Float, angleRange:Float = 0, distanceRange:Float = 0, durationRange:Float = 0, ease:Float -> Float = null, backwards:Bool = false):ParticleType
 	{
-		_angle = angle * HXP.RAD;
+		_angle = angle * PV.RAD;
 		_distance = distance;
 		_duration = duration;
-		_angleRange = angleRange * HXP.RAD;
+		_angleRange = angleRange * PV.RAD;
 		_distanceRange = distanceRange;
 		_durationRange = durationRange;
 		_ease = ease;
@@ -141,7 +141,7 @@ class ParticleType
 	private function createBuffer()
 	{
 		if (_buffer != null) return;
-		_buffer = HXP.createBitmap(Std.int(_frame.width), Std.int(_frame.height), true);
+		_buffer = PV.createBitmap(Std.int(_frame.width), Std.int(_frame.height), true);
 		_bufferRect = _buffer.rect;
 	}
 

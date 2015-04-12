@@ -110,7 +110,7 @@ class AtlasRegion
 		if (rotated)
 		{
 			var matrix = new Matrix(a, b, c, d, tx, ty);
-			matrix.rotate(90 * HXP.RAD);
+			matrix.rotate(90 * PV.RAD);
 			_parent.prepareTileMatrix(tileIndex, layer,
 				matrix.tx, matrix.ty, matrix.a, matrix.b, matrix.c, matrix.d,
 				red, green, blue, alpha, smooth);

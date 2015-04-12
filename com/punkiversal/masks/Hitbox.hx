@@ -139,7 +139,7 @@ class Hitbox extends Mask
 		// draw only if the hitbox is part of a Masklist and has a parent
 		if (list != null && parent != null && list.count > 1)
 		{
-			graphics.drawRect((parent.x - HXP.camera.x + x) * scaleX, (parent.y - HXP.camera.y + y) * scaleY, width * scaleX, height * scaleY);
+			graphics.drawRect((parent.x - PV.camera.x + x) * scaleX, (parent.y - PV.camera.y + y) * scaleY, width * scaleX, height * scaleY);
 		}
 	}
 	

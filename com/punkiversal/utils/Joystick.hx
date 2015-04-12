@@ -1,7 +1,7 @@
 package com.punkiversal.utils;
 
 import flash.geom.Point;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 
 enum JoyButtonState
 {
@@ -57,7 +57,7 @@ class Joystick
 	@:dox(hide)
 	public function update()
 	{
-		_timeout -= HXP.elapsed;
+		_timeout -= PV.elapsed;
 		for (button in buttons.keys())
 		{
 			switch (buttons.get(button))

@@ -1,6 +1,6 @@
 ﻿package com.punkiversal.tweens.sound;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Tween;
 import com.punkiversal.utils.Ease;
 
@@ -28,7 +28,7 @@ class Fader extends Tween
 	public function fadeTo(volume:Float, duration:Float, ease:Float -> Float = null)
 	{
 		if (volume < 0) volume = 0;
-		_start = HXP.volume;
+		_start = PV.volume;
 		_range = volume - _start;
 		_target = duration;
 		_ease = ease;
@@ -40,7 +40,7 @@ class Fader extends Tween
 	override public function update() 
 	{
 		super.update();
-		HXP.volume = _start + _range * _t;
+		PV.volume = _start + _range * _t;
 	}
 	
 	// Fader information.

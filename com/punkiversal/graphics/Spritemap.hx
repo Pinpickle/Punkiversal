@@ -1,6 +1,6 @@
 package com.punkiversal.graphics;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Graphic;
 import com.punkiversal.graphics.atlas.TileAtlas;
 
@@ -113,7 +113,7 @@ class Spritemap extends Image
 	{
 		if (_anim != null && !complete)
 		{
-			_timer += (HXP.fixed ? _anim.frameRate / HXP.assignedFrameRate : _anim.frameRate * HXP.elapsed) * rate;
+			_timer += (PV.fixed ? _anim.frameRate / PV.assignedFrameRate : _anim.frameRate * PV.elapsed) * rate;
 			if (_timer >= 1)
 			{
 				while (_timer >= 1)
@@ -296,7 +296,7 @@ class Spritemap extends Image
 	 */
 	public function randFrame()
 	{
-		frame = HXP.rand(_frameCount);
+		frame = PV.rand(_frameCount);
 	}
 
 	/**

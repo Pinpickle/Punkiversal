@@ -1,4 +1,4 @@
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Scene;
 import com.punkiversal.Entity;
 import com.punkiversal.graphics.Text;
@@ -22,7 +22,7 @@ class DemoScene extends Scene
 		overlayText = new Text("Press '[' and ']' to switch demos", 0, 0);
 		overlayText.resizable = true;
 		overlayText.scrollX = overlayText.scrollY = 0;
-		var overlay:Entity = new Entity(0, HXP.screen.height - 20, overlayText);
+		var overlay:Entity = new Entity(0, PV.screen.height - 20, overlayText);
 		overlay.layer = -10;
 		add(overlay);
 
@@ -47,7 +47,7 @@ class DemoScene extends Scene
 		var scene = Type.createInstance(classDef, []);
 		if (scene == null) return false;
 
-		HXP.scene = scene;
+		PV.scene = scene;
 		return true;
 	}
 
@@ -71,7 +71,7 @@ class DemoScene extends Scene
 
 	public override function update()
 	{
-		tapTime -= HXP.elapsed;
+		tapTime -= PV.elapsed;
 		if (Input.mousePressed)
 		{
 			if (tapTime > 0)
@@ -92,7 +92,7 @@ class DemoScene extends Scene
 		}
 		if (Input.pressed(Key.F))
 		{
-			HXP.fullscreen = !HXP.fullscreen;
+			PV.fullscreen = !PV.fullscreen;
 		}
 		super.update();
 	}

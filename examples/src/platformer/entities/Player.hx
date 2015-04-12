@@ -1,6 +1,6 @@
 package platformer.entities;
 
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Sfx;
 import com.punkiversal.graphics.Spritemap;
 import com.punkiversal.utils.Input;
@@ -58,7 +58,7 @@ class Player extends Physics
 				var sfx = new Sfx("sfx/jump.wav");
 				sfx.play(0.8);
 				#end
-				acceleration.y = -HXP.sign(gravity.y) * kJumpForce;
+				acceleration.y = -PV.sign(gravity.y) * kJumpForce;
 			case Gravity:
 				gravity.y = -gravity.y;
 			case Disable:

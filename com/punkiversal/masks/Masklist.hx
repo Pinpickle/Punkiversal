@@ -1,7 +1,7 @@
 package com.punkiversal.masks;
 
 import com.punkiversal.Entity;
-import com.punkiversal.HXP;
+import com.punkiversal.PV;
 import com.punkiversal.Mask;
 import flash.display.Graphics;
 
@@ -69,8 +69,8 @@ class Masklist extends Hitbox
 	 */
 	public function remove(mask:Mask):Mask
 	{
-		if (HXP.indexOf(_masks, mask) < 0) return mask;
-		HXP.clear(_temp);
+		if (PV.indexOf(_masks, mask) < 0) return mask;
+		PV.clear(_temp);
 		for (m in _masks)
 		{
 			if (m == mask)
@@ -94,7 +94,7 @@ class Masklist extends Hitbox
 	 */
 	public function removeAt(index:Int = 0)
 	{
-		HXP.clear(_temp);
+		PV.clear(_temp);
 		var i:Int = _masks.length;
 		index %= i;
 		while (i-- > 0)
@@ -119,8 +119,8 @@ class Masklist extends Hitbox
 	{
 		for (m in _masks) m.list = null;
 		_count = 0;
-		HXP.clear(_masks);
-		HXP.clear(_temp);
+		PV.clear(_masks);
+		PV.clear(_temp);
 		update();
 	}
 
@@ -147,8 +147,8 @@ class Masklist extends Hitbox
 	{
 		// find bounds of the contained masks
 		var t:Int, l:Int, r:Int, b:Int, h:Hitbox;
-		t = l = HXP.INT_MAX_VALUE;
-		r = b = HXP.INT_MIN_VALUE;
+		t = l = PV.INT_MAX_VALUE;
+		r = b = PV.INT_MIN_VALUE;
 		var h:Hitbox;
 		var p:Polygon;
 		
