@@ -7,8 +7,8 @@
 
 		<title>::api.currentPageName::::if api.config.pageTitle !=null:: - ::api.config.pageTitle::::end::</title>
 
-		<meta name="description" content="HaxePunk is a 2d game engine written in Haxe for cross-platform deployment."/>
-		<meta name="author" content="HaxePunk.com"/>
+		<meta name="description" content="Punkiversal is a 2d game engine written in Haxe for cross-platform deployment."/>
+		<meta name="author" content="Punkiversal.com"/>
 		<meta name="HandheldFriendly" content="True"/>
 		<meta name="MobileOptimized" content="320"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
@@ -21,7 +21,7 @@
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-			ga('create', 'UA-5069201-6', 'haxepunk.com');
+			ga('create', 'UA-5069201-6', 'punkiversal.com');
 			ga('send', 'pageview');
 		</script>
 		<script type="text/javascript">
@@ -39,35 +39,35 @@
 
 	<body>
 		<div class="top-menu">
-			<a href="http://www.haxepunk.com/" class="logo">
-				<image src="::api.config.rootPath::HaxePunk.svg" width="300" height="75" alt="HaxePunk" />
+			<a href="http://www.punkiversal.com/" class="logo">
+				<image src="::api.config.rootPath::Punkiversal.svg" width="300" height="75" alt="Punkiversal" />
 			</a>
 			<nav class="ink-navigation">
 				<ul class="menu horizontal orange">
 					<li>
-						<a href="http://www.haxepunk.com/">Home</a>
+						<a href="http://www.punkiversal.com/">Home</a>
 					</li>
 					<li>
-						<a href="http://www.haxepunk.com/features/">Features</a>
+						<a href="http://www.punkiversal.com/features/">Features</a>
 					</li>
 					<li>
-						<a href="http://www.haxepunk.com/demos/">Demos</a>
+						<a href="http://www.punkiversal.com/demos/">Demos</a>
 					</li>
 					<li class="active">
-						<a href="http://www.haxepunk.com/documentation/">Documentation</a>
+						<a href="http://www.punkiversal.com/documentation/">Documentation</a>
 					</li>
 					<li>
-						<a href="http://www.haxepunk.com/games/">Games</a>
+						<a href="http://www.punkiversal.com/games/">Games</a>
 					</li>
 					<li>
-						<a href="http://forum.haxepunk.com/">Forum</a>
+						<a href="http://forum.punkiversal.com/">Forum</a>
 					</li>
 				</ul>
 			</nav>
 		</div>
 
 		<div class="github">
-			<a href="https://github.com/HaxePunk/HaxePunk">Fork me on GitHub</a>
+			<a href="https://github.com/Punkiversal/Punkiversal">Fork me on GitHub</a>
 		</div>
 		
 		<div id="container" class="vspace mainpoints">
@@ -92,14 +92,14 @@
 		<footer>
 		<div class="ink-grid">
 		   <div class="large-100 medium-100 small-100">
-				Copyright &copy; 2011-2014 HaxePunk.com
+				Copyright &copy; 2011-2014 Punkiversal.com
 				&nbsp;&bull;&nbsp;
-				HaxePunk's <a href="https://github.com/HaxePunk">code</a> is licensed under&nbsp;
+				Punkiversal's <a href="https://github.com/Punkiversal">code</a> is licensed under&nbsp;
 				<a href="http://opensource.org/licenses/MIT">MIT</a>
 				&nbsp;&bull;&nbsp;
-				Follow <a href="https://twitter.com/HaxePunk">@HaxePunk</a>
+				Follow <a href="https://twitter.com/Punkiversal">@Punkiversal</a>
 				&nbsp;&bull;&nbsp;
-				<a href="https://github.com/HaxePunk/haxepunk.com">Site</a> made with <a href="http://ink.sapo.pt/">Ink</a>&nbsp;
+				<a href="https://github.com/Punkiversal/punkiversal.com">Site</a> made with <a href="http://ink.sapo.pt/">Ink</a>&nbsp;
 				Powered by <a href="http://pages.github.com/">GitHub Pages</a>
 			</div>
 		</div>

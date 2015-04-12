@@ -1,11 +1,11 @@
 package layers;
 
-import com.haxepunk.Entity;
-import com.haxepunk.HXP;
-import com.haxepunk.Scene;
-import com.haxepunk.graphics.Image;
-import com.haxepunk.graphics.Text;
-import com.haxepunk.graphics.atlas.Atlas;
+import com.punkiversal.Entity;
+import com.punkiversal.HXP;
+import com.punkiversal.Scene;
+import com.punkiversal.graphics.Image;
+import com.punkiversal.graphics.Text;
+import com.punkiversal.graphics.atlas.Atlas;
 
 class LayerScene extends DemoScene
 {
@@ -41,11 +41,11 @@ class LayerScene extends DemoScene
 		var background = Image.createRect(HXP.width, HXP.height, 0xffffff);
 		addGraphic(background, 100); // add graphic at back
 
-		var text = new com.haxepunk.graphics.Text();
+		var text = new com.punkiversal.graphics.Text();
 		text.color = 0x000000;
 		text.addStyle("welcome", {color: 0xFF0000, bold: true});
 		text.addStyle("orange", {color: 0xF2990D});
-		text.richText = "<welcome>Welcome</welcome> to <orange>HaxePunk</orange>!";
+		text.richText = "<welcome>Welcome</welcome> to <orange>Punkiversal</orange>!";
 		text.centerOrigin();
 		addGraphic(text, -5, HXP.halfWidth, HXP.halfHeight);
 	}

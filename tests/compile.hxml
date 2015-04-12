@@ -3,4 +3,4 @@
 -lib openfl
 --macro openfl.Lib.includeBackend("native")
 --remap flash:openfl
--lib HaxePunk
+-lib Punkiversal

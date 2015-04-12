@@ -1,7 +1,7 @@
 package masks;
 
-import com.haxepunk.*;
-import com.haxepunk.masks.*;
+import com.punkiversal.*;
+import com.punkiversal.masks.*;
 
 class TestCollide extends haxe.unit.TestCase
 {

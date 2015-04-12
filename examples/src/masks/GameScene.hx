@@ -1,14 +1,14 @@
 package masks;
 
-import com.haxepunk.HXP;
-import com.haxepunk.Entity;
-import com.haxepunk.graphics.Image;
-import com.haxepunk.graphics.Tilemap;
-import com.haxepunk.masks.Circle;
-import com.haxepunk.masks.Grid;
-import com.haxepunk.masks.Hitbox;
-import com.haxepunk.utils.Input;
-import com.haxepunk.utils.Key;
+import com.punkiversal.HXP;
+import com.punkiversal.Entity;
+import com.punkiversal.graphics.Image;
+import com.punkiversal.graphics.Tilemap;
+import com.punkiversal.masks.Circle;
+import com.punkiversal.masks.Grid;
+import com.punkiversal.masks.Hitbox;
+import com.punkiversal.utils.Input;
+import com.punkiversal.utils.Key;
 
 class GameScene extends DemoScene
 {

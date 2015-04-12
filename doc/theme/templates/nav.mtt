@@ -11,8 +11,8 @@
 	::case::
 		::set name = args[0]::		
 		<li ::cond name.charAt(0) != "_"::
-			::attr class if (name != "haxepunk") "expando" else "" +if (depth == 0 && api.isPlatform(name)) " platform platform-" + name else ""::>
-			::if name != "haxepunk"::
+			::attr class if (name != "punkiversal") "expando" else "" +if (depth == 0 && api.isPlatform(name)) " platform platform-" + name else ""::>
+			::if name != "punkiversal"::
 				::if name != "ds" && name != "math"::
 					<div>
 						<a href="#" class="treeLink nav-header" onclick="toggleCollapsed(this)">
@@ -23,7 +23,7 @@
 					</div>
 				::end::
 			::else::				
-				<span class="nav-header">com.haxepunk</span>
+				<span class="nav-header">com.punkiversal</span>
 			::end::
 			<ul>
 				::foreach sub args[2]::

@@ -19,11 +19,11 @@ before_install:
   - mkdir -p ~/haxelib
   - haxelib setup ~/haxelib
   # Download dependencies
-  - haxelib dev HaxePunk $TRAVIS_BUILD_DIR
+  - haxelib dev Punkiversal $TRAVIS_BUILD_DIR
   - haxelib install lime
   - haxelib install openfl
   - ant tools
-  - echo "y" | haxelib run HaxePunk setup
+  - echo "y" | haxelib run Punkiversal setup
 
 script:
   - ant clean build unit-travis

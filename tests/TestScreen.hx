@@ -1,6 +1,6 @@
-import com.haxepunk.Engine;
-import com.haxepunk.HXP;
-import com.haxepunk.Scene;
+import com.punkiversal.Engine;
+import com.punkiversal.HXP;
+import com.punkiversal.Scene;
 
 class TestScreen extends haxe.unit.TestCase
 {

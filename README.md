@@ -1,4 +1,4 @@
-# HaxePunk
+# Punkiversal
 
 A Haxe port of the [FlashPunk](http://useflashpunk.net) AS3 library. There are a few additions/differences from the original.
 
@@ -8,29 +8,29 @@ A Haxe port of the [FlashPunk](http://useflashpunk.net) AS3 library. There are a
 * Joystick and multi-touch input
 * Texture atlases for native targets (supports TexturePacker xml)
 
-[![Build Status](https://travis-ci.org/HaxePunk/HaxePunk.png?branch=dev)](https://travis-ci.org/HaxePunk/HaxePunk)
+[![Build Status](https://travis-ci.org/Punkiversal/Punkiversal.png?branch=dev)](https://travis-ci.org/Punkiversal/Punkiversal)
 
 ## Release build
 
-First, make sure you have [Haxe](http://haxe.org) 3.0 or higher, we recommend you to update to Haxe 3.1.3 if you haven't already. Then execute the following commands below to get started with your first HaxePunk project.
-If you are using Haxe 2 the last version supporting it was [v2.3.0](https://github.com/HaxePunk/HaxePunk/releases/tag/v2.3.0) `haxelib install HaxePunk 2.3.0`.
+First, make sure you have [Haxe](http://haxe.org) 3.0 or higher, we recommend you to update to Haxe 3.1.3 if you haven't already. Then execute the following commands below to get started with your first Punkiversal project.
+If you are using Haxe 2 the last version supporting it was [v2.3.0](https://github.com/Punkiversal/Punkiversal/releases/tag/v2.3.0) `haxelib install Punkiversal 2.3.0`.
 
 ```bash
-haxelib install HaxePunk
-haxelib run HaxePunk setup
-haxelib run HaxePunk new MyProject # creates a new project
+haxelib install Punkiversal
+haxelib run Punkiversal setup
+haxelib run Punkiversal new MyProject # creates a new project
 ```
 
 ## Development build
 
-You need to have ant installed to build a development version of HaxePunk. Make sure you set a default program for swf files to view the debug output. You will also need a C++ compiler for native builds (Xcode, Visual Studio, g++).
+You need to have ant installed to build a development version of Punkiversal. Make sure you set a default program for swf files to view the debug output. You will also need a C++ compiler for native builds (Xcode, Visual Studio, g++).
 
 ```bash
-git clone https://github.com/HaxePunk/HaxePunk.git
+git clone https://github.com/Punkiversal/Punkiversal.git
 ant
 ```
 
-This will install a dev version of HaxePunk through haxelib, run unit tests, and build an example project for flash/neko/native. If you fix an issue, feel free to create a pull request.
+This will install a dev version of Punkiversal through haxelib, run unit tests, and build an example project for flash/neko/native. If you fix an issue, feel free to create a pull request.
 
 Generating documentation is just as simple. Run the commands below to create a new set of docs with haxedoc
 The documentation will be located in doc/docs/, simply open doc/docs/index.html with your web browser to see the doc.
@@ -41,17 +41,17 @@ ant doc
 
 ## Have questions or looking to get involved?
 
-There are a few ways you can get involved with HaxePunk.
+There are a few ways you can get involved with Punkiversal.
 
-*	Drop by the [HaxePunk forum](http://forum.haxepunk.com) to ask a question or show off what you've created.
+*	Drop by the [Punkiversal forum](http://forum.punkiversal.com) to ask a question or show off what you've created.
 *	Create an issue or pull request or take part in the discussion.
-*	Follow us on Twitter: [@HaxePunk](https://twitter.com/intent/user?screen_name=HaxePunk)
+*	Follow us on Twitter: [@Punkiversal](https://twitter.com/intent/user?screen_name=Punkiversal)
 
 ## Credits
 
 *	Chevy Ray Johnston for creating the original FlashPunk.
 *	[OpenFL](http://www.openfl.org/) makes native targets possible and simplifies asset management in Flash. Thanks guys!
-*	All the awesome people who have [contributed](https://github.com/HaxePunk/HaxePunk/graphs/contributors) to HaxePunk and joined in the discussions on the [forum](http://forum.haxepunk.com).
+*	All the awesome people who have [contributed](https://github.com/Punkiversal/Punkiversal/graphs/contributors) to Punkiversal and joined in the discussions on the [forum](http://forum.punkiversal.com).
 
 ## MIT License
 

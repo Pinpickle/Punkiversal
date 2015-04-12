@@ -4,7 +4,7 @@ import sys.io.Process;
 import haxe.io.BytesOutput;
 import haxe.io.Eof;
 
-import com.haxepunk.utils.HaxelibInfo;
+import com.punkiversal.utils.HaxelibInfo;
 
 class CLI
 {
@@ -72,7 +72,7 @@ class CLI
 
 		try
 		{
-			var process = new Process("haxelib", ["path", "HaxePunk"]);
+			var process = new Process("haxelib", ["path", "Punkiversal"]);
 			var buffer = new BytesOutput();
 
 			var waiting = true;
@@ -102,7 +102,7 @@ class CLI
 
 		for (i in 1...lines.length)
 		{
-			if (StringTools.trim(lines[i]) == "-D HaxePunk")
+			if (StringTools.trim(lines[i]) == "-D Punkiversal")
 			{
 				result = StringTools.trim(lines[i - 1]);
 			}
@@ -126,10 +126,10 @@ class CLI
 
 	public function usage()
 	{
-		var tool = "haxelib run HaxePunk";
+		var tool = "haxelib run Punkiversal";
 		var version = HaxelibInfo.version;
 
-		print('/green/bold-- HaxePunk $version --/reset\n');
+		print('/green/bold-- Punkiversal $version --/reset\n');
 		print('/blueUSAGE: /green$tool/reset doc');
 		print('/blueUSAGE: /green$tool/reset setup');
 		print('/blueUSAGE: /green$tool/reset update');

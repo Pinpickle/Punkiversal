@@ -1,4 +1,4 @@
-# Contributing to HaxePunk
+# Contributing to Punkiversal
 
 There are a few ways you can contribute to this project. The first is to simply create an issue clearly defining the problem you are having and any examples that might help us recreate it. The second is to fork the project, make changes, and submit a pull request following the guidelines listed below.
 
@@ -11,11 +11,11 @@ Follow the steps below to make changes and submit a pull request.
 * Make changes and test
 * Commit the changes to your new branch
 * Push to your repository `git push origin <my branch name>`
-* Create a pull request and point it to the appropriate branch for HaxePunk
+* Create a pull request and point it to the appropriate branch for Punkiversal
 
 ## Git Branches and Tagging
 
-HaxePunk uses multiple branches for development and each one has a specific purpose. Here is an overview of each branch type.
+Punkiversal uses multiple branches for development and each one has a specific purpose. Here is an overview of each branch type.
 
 <dl>
 	<dt>master</dt>
@@ -28,15 +28,15 @@ HaxePunk uses multiple branches for development and each one has a specific purp
 	<dd>This is a feature branch. It will contain code specific to a feature in development or that needs additional testing/approval.</dd>
 </dl>
 
-When each release is merged into the master branch it is tagged as a version (v2.5.2 for example). This allows anyone to download past versions of HaxePunk.
+When each release is merged into the master branch it is tagged as a version (v2.5.2 for example). This allows anyone to download past versions of Punkiversal.
 
-## Testing HaxePunk
+## Testing Punkiversal
 
 It is suggested that you test your changes on Flash and Neko if making updates to cross-platform code. There are unit tests that can be run by typing `ant unit` on the command line. It's also good to run the full suite, with examples, by typing `ant`. This may require you to install [Ant](http://ant.apache.org/) unless you already have it on your computer.
 
 ## Programming Guidlines
 
-_The following are guidlines on how to format the code you submit to HaxePunk. In the end just use good judgement and try to match the styling of the other classes._
+_The following are guidlines on how to format the code you submit to Punkiversal. In the end just use good judgement and try to match the styling of the other classes._
 
 A space should be placed after `if`, `for`, `while`, and `switch`. No space before or after the parentheses. Statements within blocks should be indented using a tab.
 

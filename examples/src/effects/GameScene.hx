@@ -1,11 +1,11 @@
 package effects;
 
-import com.haxepunk.Entity;
-import com.haxepunk.HXP;
-import com.haxepunk.graphics.Backdrop;
-import com.haxepunk.graphics.Emitter;
-import com.haxepunk.graphics.atlas.TextureAtlas;
-import com.haxepunk.utils.Input;
+import com.punkiversal.Entity;
+import com.punkiversal.HXP;
+import com.punkiversal.graphics.Backdrop;
+import com.punkiversal.graphics.Emitter;
+import com.punkiversal.graphics.atlas.TextureAtlas;
+import com.punkiversal.utils.Input;
 
 class GameScene extends DemoScene
 {
@@ -40,7 +40,7 @@ class GameScene extends DemoScene
 #end
 	}
 
-	private function onTouch(touch:com.haxepunk.utils.Touch)
+	private function onTouch(touch:com.punkiversal.utils.Touch)
 	{
 		smoke.emit("exhaust", touch.sceneX, touch.sceneY);
 	}

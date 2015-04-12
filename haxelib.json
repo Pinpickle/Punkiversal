@@ -1,12 +1,12 @@
 {
-	"name": "HaxePunk",
-	"url" : "http://haxepunk.com",
+	"name": "Punkiversal",
+	"url" : "http://github.com/Pinpickle/Punkiversal",
 	"license": "MIT",
 	"tags": ["flash", "game", "cpp", "openfl"],
-	"description": "A Haxe port of the FlashPunk AS3 engine.",
-	"version": "2.5.3",
+	"description": "OpenFL game engine/library that lets you do graphics how you want",
+	"version": "0.0.1",
 	"releasenote": "See CHANGELOG",
-	"contributors": ["heardtheword", "_ibilon"],
+	"contributors": ["heardtheword", "_ibilon", "Pinpickle"],
 	"dependencies": {
 		"lime": "",
 		"openfl": ""

@@ -1,4 +1,4 @@
-import com.haxepunk.utils.HaxelibInfo;
+import com.punkiversal.utils.HaxelibInfo;
 
 class Setup
 {
@@ -10,7 +10,7 @@ class Setup
 
 	public static function update()
 	{
-		Sys.command("haxelib update HaxePunk");
+		Sys.command("haxelib update Punkiversal");
 		installDependencies();
 	}
 

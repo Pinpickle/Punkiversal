@@ -1,5 +1,5 @@
-<project name="HaxePunk" default="all" basedir=".">
-	<description>Builds the haxepunk project</description>
+<project name="Punkiversal" default="all" basedir=".">
+	<description>Builds the punkiversal project</description>
 
 	<target name="tools">
 		<exec executable="haxe" dir="tools">
@@ -9,14 +9,14 @@
 
 	<target name="haxelib" depends="tools,doc">
 		<zip destfile="template.zip" useLanguageEncodingFlag="UTF-8" basedir="template" />
-		<zip destfile="haxepunk.zip" useLanguageEncodingFlag="UTF-8">
-			<zipfileset dir="" prefix="haxepunk" includes="run.n,haxelib.json,include.xml,template.zip,CHANGELOG,LICENSE" />
-			<zipfileset dir="com" prefix="haxepunk/com" />
-			<zipfileset dir="assets" prefix="haxepunk/assets" />
-			<zipfileset dir="doc/pages" prefix="haxepunk/doc/pages" />
+		<zip destfile="punkiversal.zip" useLanguageEncodingFlag="UTF-8">
+			<zipfileset dir="" prefix="punkiversal" includes="run.n,haxelib.json,include.xml,template.zip,CHANGELOG,LICENSE" />
+			<zipfileset dir="com" prefix="punkiversal/com" />
+			<zipfileset dir="assets" prefix="punkiversal/assets" />
+			<zipfileset dir="doc/pages" prefix="punkiversal/doc/pages" />
 		</zip>
 		<exec executable="haxelib" dir=".">
-			<arg line="local haxepunk.zip" />
+			<arg line="local punkiversal.zip" />
 		</exec>
 	</target>
 
@@ -37,7 +37,7 @@
 
 	<target name="build" depends="haxelib">
 		<exec executable="haxelib" dir=".">
-			<arg line="run HaxePunk new build-test" />
+			<arg line="run Punkiversal new build-test" />
 		</exec>
 		<exec executable="lime" dir="build-test">
 			<arg line="build flash" />
@@ -66,15 +66,15 @@
 			<arg line="-o pages/" />
 			<arg line="-theme theme/" />
 			<arg line="-in com" />
-			<arg line='--title "HaxePunk API"' />
-			<arg line='-D source-path "https://github.com/HaxePunk/HaxePunk/tree/master"' />
+			<arg line='--title "Punkiversal API"' />
+			<arg line='-D source-path "https://github.com/Punkiversal/Punkiversal/tree/master"' />
 		</exec>
 	</target>
 
 	<target name="clean">
 		<delete quiet="true">
 			<fileset dir="Example" />
-			<fileset dir="." includes="*.n,*.zip,com.haxepunk.debug.swf" />
+			<fileset dir="." includes="*.n,*.zip,com.punkiversal.debug.swf" />
 			<fileset dir="doc" includes="xmls/*.xml,pages/*" />
 		</delete>
 	</target>

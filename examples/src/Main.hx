@@ -1,5 +1,5 @@
-import com.haxepunk.Engine;
-import com.haxepunk.HXP;
+import com.punkiversal.Engine;
+import com.punkiversal.HXP;
 
 class Main extends Engine
 {

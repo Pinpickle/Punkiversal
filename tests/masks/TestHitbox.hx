@@ -1,7 +1,7 @@
 package masks;
 
-import com.haxepunk.*;
-import com.haxepunk.masks.*;
+import com.punkiversal.*;
+import com.punkiversal.masks.*;
 
 class TestHitbox extends haxe.unit.TestCase
 {
@@ -28,7 +28,7 @@ class TestHitbox extends haxe.unit.TestCase
 		assertFalse(collideCircle(circle, 0, 20));
 	}
 
-	@:access(com.haxepunk.masks.Hitbox)
+	@:access(com.punkiversal.masks.Hitbox)
 	private function collideHitbox(hitbox:Hitbox, x:Int, y:Int):Bool
 	{
 		box._x = x;
@@ -36,7 +36,7 @@ class TestHitbox extends haxe.unit.TestCase
 		return hitbox.collideHitbox(box);
 	}
 
-	@:access(com.haxepunk.masks.Circle)
+	@:access(com.punkiversal.masks.Circle)
 	private function collideCircle(circle:Circle, x:Int, y:Int):Bool
 	{
 		circle._x = x;

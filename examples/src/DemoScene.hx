@@ -1,9 +1,9 @@
-import com.haxepunk.HXP;
-import com.haxepunk.Scene;
-import com.haxepunk.Entity;
-import com.haxepunk.graphics.Text;
-import com.haxepunk.utils.Input;
-import com.haxepunk.utils.Key;
+import com.punkiversal.HXP;
+import com.punkiversal.Scene;
+import com.punkiversal.Entity;
+import com.punkiversal.graphics.Text;
+import com.punkiversal.utils.Input;
+import com.punkiversal.utils.Key;
 
 // have to import scenes for compilation
 import platformer.GameScene;

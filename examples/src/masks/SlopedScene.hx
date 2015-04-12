@@ -1,13 +1,13 @@
 package masks;
 
-import com.haxepunk.HXP;
-import com.haxepunk.Entity;
-import com.haxepunk.Scene;
-import com.haxepunk.graphics.Image;
-import com.haxepunk.masks.Circle;
-import com.haxepunk.masks.Hitbox;
-import com.haxepunk.masks.SlopedGrid;
-import com.haxepunk.utils.Input;
+import com.punkiversal.HXP;
+import com.punkiversal.Entity;
+import com.punkiversal.Scene;
+import com.punkiversal.graphics.Image;
+import com.punkiversal.masks.Circle;
+import com.punkiversal.masks.Hitbox;
+import com.punkiversal.masks.SlopedGrid;
+import com.punkiversal.utils.Input;
 
 class SlopedScene extends DemoScene
 {
