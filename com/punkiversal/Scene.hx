@@ -1,6 +1,7 @@
 package com.punkiversal;
 
 import com.punkiversal.graphics.atlas.AtlasData;
+import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.geom.Point;
 import com.punkiversal.Entity;
@@ -43,6 +44,8 @@ class Scene extends Tweener
 		_update = new List<Entity>();
 		_layerDisplay = new Map<Int,Bool>();
 		_layers = new Map<Int,List<Entity>>();
+		_layerSprites = new Map<Int,Sprite>();
+		_layerSpritesList = new Array<Int>();
 		_types = new Map<String,List<Entity>>();
 
 		_classCount = new Map<String,Int>();
@@ -221,13 +224,13 @@ class Scene extends Tweener
 	 * @param	layer		Layer of the Entity.
 	 * @return	The Entity that was added.
 	 */
-	public function addGraphic(graphic:Graphic, layer:Int = 0, x:Float = 0, y:Float = 0)
+	/*public function addGraphic(graphic:Graphic, layer:Int = 0, x:Float = 0, y:Float = 0)
 	{
-		/*var e:Entity = new Entity(x, y, graphic);
+		var e:Entity = new Entity(x, y, graphic);
 		e.layer = layer;
 		e.active = false;
-		return add(e);*/
-	}
+		return add(e);
+	}*/
 
 	/**
 	 * Adds an Entity to the Scene with the Mask object.
@@ -1074,6 +1077,7 @@ class Scene extends Tweener
 			}
 		}
 		list.add(e);
+		addEntityGraphic(e);
 	}
 
 	/** @private Removes Entity from the render list. */
@@ -1086,6 +1090,59 @@ class Scene extends Tweener
 		{
 			_layerList.remove(e._layer);
 			_layers.remove(e._layer);
+		}
+	}
+
+	@:allow(com.punkiversal.Entity)
+	private function addEntityGraphic(e:Entity) {
+		if (e._graphic != null) {
+			addGraphic(e._graphic, e._layer);
+		}
+	}
+
+	@:allow(com.punkiversal.Entity)
+	private function removeEntityGraphic(e:Entity) {
+		if (e._graphic != null) {
+			removeGraphic(e._graphic, e._layer);
+		}
+	}
+
+	private function addGraphic(g:DisplayObject, layer:Int) {
+		var layerSprite:Sprite;
+		if (_layerSprites.exists(layer)) {
+			layerSprite = _layerSprites.get(layer);
+		} else {
+			layerSprite = new Sprite();
+			sprite.addChild(layerSprite);
+
+			if (_layerSpritesList.length == 0) {
+				_layerSpritesList[0] = layer;
+			} else {
+				var pos:Int = PV.insertSortedKey(_layerSpritesList, layer, layerSort);
+				if (pos == 0) {
+					sprite.setChildIndex(layerSprite, 0);
+				} else {
+					var layerBelow:Sprite = _layerSprites.get(_layerSpritesList[pos - 1]);
+					sprite.setChildIndex(layerSprite, sprite.getChildIndex(layerBelow) + 1);
+				}
+			}
+
+			_layerSprites.set(layer, layerSprite);
+		}
+
+		layerSprite.addChild(g);
+	}
+
+	private function removeGraphic(g:DisplayObject, layer:Int) {
+		if (_layerSprites.exists(layer)) {
+			var layerSprite = _layerSprites.get(layer);
+			layerSprite.removeChild(g);
+
+			if (layerSprite.numChildren == 0) {
+				sprite.removeChild(layerSprite);
+				_layerSprites.remove(layer);
+				_layerSpritesList.remove(layer);
+			}
 		}
 	}
 
@@ -1192,6 +1249,8 @@ class Scene extends Tweener
 	private var _layerList:Array<Int>;
 	private var _layerDisplay:Map<Int,Bool>;
 	private var _layers:Map<Int,List<Entity>>;
+	private var _layerSprites:Map<Int,Sprite>;
+	private var _layerSpritesList:Array<Int>;
 
 	private var _classCount:Map<String,Int>;
 

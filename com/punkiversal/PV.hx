@@ -798,7 +798,7 @@ class PV
 	 * @param key      The key to insert
 	 * @param compare  A comparison function to determine sort order
 	 */
-	public static function insertSortedKey<T>(list:Array<T>, key:T, compare:T->T->Int):Void
+	public static function insertSortedKey<T>(list:Array<T>, key:T, compare:T->T->Int):Null<Int>
 	{
 		var result:Int = 0,
 			mid:Int = 0,
@@ -810,10 +810,14 @@ class PV
 			result = compare(list[mid], key);
 			if (result > 0) max = mid - 1;
 			else if (result < 0) min = mid + 1;
-			else return;
+			else return null;
 		}
 
-		list.insert(result > 0 ? mid : mid + 1, key);
+		var final:Int = result > 0 ? mid : mid + 1;
+
+		list.insert(final, key);
+
+		return final;
 	}
 
 	/**

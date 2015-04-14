@@ -557,8 +557,15 @@ class Entity extends Tweener
 	private function set_graphic(value:DisplayObject):DisplayObject
 	{
 		if (_graphic == value) return value;
-		if ((_graphic != null) && (PV.stage.contains(_graphic))) PV.stage.removeChild(_graphic);
+		if ((_graphic != null) && (_scene != null)) {
+			_scene.removeEntityGraphic(this);
+		}
+		
 		_graphic = value;
+
+		if ((_graphic != null) && (_scene != null)) {
+			_scene.addEntityGraphic(this);
+		}
 		PV.stage.addChild(_graphic);
 		return _graphic;
 	}
