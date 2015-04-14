@@ -85,7 +85,7 @@ class Scene extends Tweener
 				if (e.hasTween) e.updateTweens();
 				e.update();
 			}
-			if (e.graphic != null && e.graphic.active) e.graphic.update();
+			// if (e.graphic != null && e.graphic.active) e.graphic.update();
 		}
 	}
 
@@ -221,12 +221,12 @@ class Scene extends Tweener
 	 * @param	layer		Layer of the Entity.
 	 * @return	The Entity that was added.
 	 */
-	public function addGraphic(graphic:Graphic, layer:Int = 0, x:Float = 0, y:Float = 0):Entity
+	public function addGraphic(graphic:Graphic, layer:Int = 0, x:Float = 0, y:Float = 0)
 	{
-		var e:Entity = new Entity(x, y, graphic);
+		/*var e:Entity = new Entity(x, y, graphic);
 		e.layer = layer;
 		e.active = false;
-		return add(e);
+		return add(e);*/
 	}
 
 	/**

@@ -833,8 +833,12 @@ class Console
 			g.clear();
 			for (e in SCREEN_LIST)
 			{
-				var graphicScrollX = e.graphic != null ? e.graphic.scrollX : 1;
-				var graphicScrollY = e.graphic != null ? e.graphic.scrollY : 1;
+				// TODO: Reimplement scrollX and scrollY
+				// var graphicScrollX = e.graphic != null ? e.graphic.scrollX : 1;
+				// var graphicScrollY = e.graphic != null ? e.graphic.scrollY : 1;
+
+				var graphicScrollX = 1;
+				var graphicScrollY = 1;
 
 				// If the Entity is not selected.
 				if (PV.indexOf(SELECT_LIST, e) < 0)

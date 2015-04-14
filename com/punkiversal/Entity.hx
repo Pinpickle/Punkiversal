@@ -1,6 +1,7 @@
 package com.punkiversal;
 
 import flash.display.BitmapData;
+import flash.display.DisplayObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import com.punkiversal.graphics.Image;
@@ -107,7 +108,7 @@ class Entity extends Tweener
 	 * @param	graphic		Graphic to assign to the Entity.
 	 * @param	mask		Mask to assign to the Entity.
 	 */
-	public function new(x:Float = 0, y:Float = 0, graphic:Graphic = null, mask:Mask = null)
+	public function new(x:Float = 0, y:Float = 0, graphic:DisplayObject = null, mask:Mask = null)
 	{
 		super();
 		visible = true;
@@ -150,29 +151,13 @@ class Entity extends Tweener
 	override public function update():Void { }
 
 	/**
-	 * Renders the Entity. If you override this for special behaviour,
-	 * remember to call super.render() to render the Entity's graphic.
+	 * Moves the graphic to reflect the position of the entity
 	 */
 	public function render():Void
 	{
-		if (_graphic != null && _graphic.visible)
-		{
-			if (_graphic.relative)
-			{
-				_point.x = x;
-				_point.y = y;
-			}
-			else _point.x = _point.y = 0;
-			_camera.x = _scene == null ? PV.camera.x : _scene.camera.x;
-			_camera.y = _scene == null ? PV.camera.y : _scene.camera.y;
-			if (_graphic.blit)
-			{
-				_graphic.render((renderTarget != null) ? renderTarget : PV.buffer, _point, _camera);
-			}
-			else
-			{
-				_graphic.renderAtlas(layer, _point, _camera);
-			}
+		if (_graphic != null) {
+			_graphic.x = x;
+			_graphic.y = y;
 		}
 	}
 
@@ -567,12 +552,14 @@ class Entity extends Tweener
 	/**
 	 * Graphical component to render to the screen.
 	 */
-	public var graphic(get, set):Graphic;
-	private inline function get_graphic():Graphic { return _graphic; }
-	private function set_graphic(value:Graphic):Graphic
+	public var graphic(get, set):DisplayObject;
+	private inline function get_graphic():DisplayObject { return _graphic; }
+	private function set_graphic(value:DisplayObject):DisplayObject
 	{
 		if (_graphic == value) return value;
+		if ((_graphic != null) && (PV.stage.contains(_graphic))) PV.stage.removeChild(_graphic);
 		_graphic = value;
+		PV.stage.addChild(_graphic);
 		return _graphic;
 	}
 
@@ -593,32 +580,6 @@ class Entity extends Tweener
 		_name = value;
 		if (value != "") _scene.registerName(this);
 		return _name;
-	}
-
-	/**
-	 * Adds the graphic to the Entity via a Graphiclist.
-	 * @param	g		Graphic to add.
-	 *
-	 * @return	The added graphic.
-	 */
-	public function addGraphic(g:Graphic):Graphic
-	{
-		if (graphic == null)
-		{
-			graphic = g;
-		}
-		else if (Std.is(graphic, Graphiclist))
-		{
-			cast(graphic, Graphiclist).add(g);
-		}
-		else
-		{
-			var list:Graphiclist = new Graphiclist();
-			list.add(graphic);
-			list.add(g);
-			graphic = list;
-		}
-		return g;
 	}
 
 	/**
@@ -915,7 +876,7 @@ class Entity extends Tweener
 	private var _moveY:Float;
 
 	// Rendering information.
-	private var _graphic:Graphic;
+	private var _graphic:DisplayObject;
 	private var _point:Point;
 	private var _camera:Point;
 	
