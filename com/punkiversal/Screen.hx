@@ -1,16 +1,5 @@
 package com.punkiversal;
 
-import com.punkiversal.graphics.atlas.Atlas;
-import com.punkiversal.graphics.Image;
-
-import flash.display.Bitmap;
-import flash.display.BitmapData;
-import flash.display.PixelSnapping;
-import flash.display.Sprite;
-import flash.filters.BitmapFilter;
-import flash.geom.Matrix;
-import flash.Lib;
-
 /**
  * Container for the main screen buffer. Can be used to transform the screen.
  * To be used through `PV.screen`.
@@ -23,8 +12,6 @@ class Screen
 	@:allow(com.punkiversal)
 	private function new()
 	{
-		_sprite = new Sprite();
-		_bitmap = new Array<Bitmap>();
 		init();
 	}
 
@@ -33,26 +20,6 @@ class Screen
 		x = y = originX = originY = 0;
 		_angle = _current = 0;
 		scale = scaleX = scaleY = 1;
-		updateTransformation();
-
-		// create screen buffers
-		if (PV.engine.contains(_sprite))
-		{
-			//PV.engine.removeChild(_sprite);
-		}
-		if (PV.renderMode == RenderMode.BUFFER)
-		{
-			//PV.engine.addChild(_sprite);
-		}
-	}
-
-	private inline function disposeBitmap(bd:Bitmap)
-	{
-		if (bd != null)
-		{
-			_sprite.removeChild(bd);
-			bd.bitmapData.dispose();
-		}
 	}
 
 	/**
@@ -63,84 +30,6 @@ class Screen
 	{
 		width = PV.width;
 		height = PV.height;
-
-		if (PV.renderMode == RenderMode.BUFFER)
-		{
-			disposeBitmap(_bitmap[0]);
-			disposeBitmap(_bitmap[1]);
-
-			_bitmap[0] = new Bitmap(PV.createBitmap(width, height, true), PixelSnapping.NEVER);
-			_bitmap[1] = new Bitmap(PV.createBitmap(width, height, true), PixelSnapping.NEVER);
-
-			_sprite.addChild(_bitmap[0]).visible = true;
-			_sprite.addChild(_bitmap[1]).visible = false;
-			PV.buffer = _bitmap[0].bitmapData;
-		}
-
-		_current = 0;
-		needsResize = false;
-	}
-
-	/**
-	 * Swaps screen buffers.
-	 */
-	public function swap()
-	{
-		if (PV.renderMode == RenderMode.BUFFER)
-		{
-			#if !bitfive _current = 1 - _current; #end
-			PV.buffer = _bitmap[_current].bitmapData;
-		}
-	}
-
-	/**
-	 * Add a filter.
-	 *
-	 * @param	filter	The filter to add.
-	 */
-	public function addFilter(filter:Array<BitmapFilter>)
-	{
-		_sprite.filters = filter;
-	}
-
-	/**
-	 * Refreshes the screen.
-	 */
-	public function refresh()
-	{
-		// refreshes the screen
-		PV.buffer.fillRect(PV.bounds, PV.stage.color);
-	}
-
-	/**
-	 * Redraws the screen.
-	 */
-	public function redraw()
-	{
-		// refresh the buffers
-		if (PV.renderMode == RenderMode.BUFFER)
-		{
-			_bitmap[_current].visible = true;
-			_bitmap[1 - _current].visible = false;
-		}
-	}
-
-	/** @private Re-applies transformation matrix. */
-	private function updateTransformation()
-	{
-		if (_matrix == null)
-		{
-			_matrix = new Matrix();
-		}
-		_matrix.b = _matrix.c = 0;
-		_matrix.a = fullScaleX;
-		_matrix.d = fullScaleY;
-		_matrix.tx = -originX * _matrix.a;
-		_matrix.ty = -originY * _matrix.d;
-		if (_angle != 0) _matrix.rotate(_angle);
-		_matrix.tx += originX * fullScaleX + x;
-		_matrix.ty += originY * fullScaleY + y;
-		_sprite.transform.matrix = _matrix;
 	}
 
 	@:dox(hide)
@@ -189,7 +78,6 @@ class Screen
 	{
 		if (x == value) return value;
 		PV.engine.x = x = value;
-		updateTransformation();
 		return x;
 	}
 
@@ -201,7 +89,6 @@ class Screen
 	{
 		if (y == value) return value;
 		PV.engine.y = y = value;
-		updateTransformation();
 		return y;
 	}
 
@@ -213,7 +100,6 @@ class Screen
 	{
 		if (originX == value) return value;
 		originX = value;
-		updateTransformation();
 		return originX;
 	}
 
@@ -225,7 +111,6 @@ class Screen
 	{
 		if (originY == value) return value;
 		originY = value;
-		updateTransformation();
 		return originY;
 	}
 
@@ -238,7 +123,6 @@ class Screen
 		if (scaleX == value) return value;
 		scaleX = value;
 		fullScaleX = scaleX * scale;
-		updateTransformation();
 		needsResize = true;
 		return scaleX;
 	}
@@ -252,7 +136,6 @@ class Screen
 		if (scaleY == value) return value;
 		scaleY = value;
 		fullScaleY = scaleY * scale;
-		updateTransformation();
 		needsResize = true;
 		return scaleY;
 	}
@@ -268,7 +151,6 @@ class Screen
 		scale = value;
 		fullScaleX = scaleX * scale;
 		fullScaleY = scaleY * scale;
-		updateTransformation();
 		needsResize = true;
 		return scale;
 	}
@@ -298,7 +180,6 @@ class Screen
 	{
 		if (_angle == value * PV.RAD) return value;
 		_angle = value * PV.RAD;
-		updateTransformation();
 		return _angle;
 	}
 
@@ -308,26 +189,13 @@ class Screen
 	public var smoothing(get, set):Bool;
 	private function get_smoothing():Bool
 	{
-		if (PV.renderMode == RenderMode.BUFFER)
-		{
-			return _bitmap[0].smoothing;
-		}
-		else
-		{
-			return Atlas.smooth;
-		}
+		// TODO: Set smoothing
+		return true;
 	}
 	private function set_smoothing(value:Bool):Bool
 	{
-		if (PV.renderMode == RenderMode.BUFFER)
-		{
-			_bitmap[0].smoothing = _bitmap[1].smoothing = value;
-		}
-		else
-		{
-			Atlas.smooth = value;
-		}
-		return value;
+		// TODO: Set smoothing
+		return true;
 	}
 
 	/**
@@ -344,29 +212,22 @@ class Screen
 	 * X position of the mouse on the screen.
 	 */
 	public var mouseX(get, null):Int;
-	private function get_mouseX():Int { return Std.int(_sprite.mouseX); }
+	private function get_mouseX():Int { return Std.int(PV.stage.mouseX); }
 
 	/**
 	 * Y position of the mouse on the screen.
 	 */
 	public var mouseY(get, null):Int;
-	private function get_mouseY():Int { return Std.int(_sprite.mouseY); }
+	private function get_mouseY():Int { return Std.int(PV.stage.mouseY); }
 
 	/**
 	 * Captures the current screen as an Image object.
 	 * Will only work in buffer rendermode (flash or html5).
 	 * @return	A new Image object.
 	 */
-	public function capture():Image
+	public function capture()
 	{
-		if (PV.renderMode == RenderMode.BUFFER)
-		{
-			return new Image(_bitmap[_current].bitmapData.clone());
-		}
-		else
-		{
-			throw "Screen.capture only supported with buffer rendering";
-		}
+		// TODO: Capture
 	}
 
 	/**
@@ -390,10 +251,7 @@ class Screen
 	}
 
 	// Screen infromation.
-	private var _sprite:Sprite;
-	private var _bitmap:Array<Bitmap>;
 	private var _current:Int;
-	private var _matrix:Matrix;
 	private var _angle:Float;
 	private var _shakeTime:Float=0;
 	private var _shakeMagnitude:Int=0;

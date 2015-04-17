@@ -142,22 +142,8 @@ class Engine extends Sprite
 
 		// timing stuff
 		var t:Float = Lib.getTimer();
-		if (_frameLast == 0) _frameLast = Std.int(t);
-
-		// render loop
-		if (PV.renderMode == RenderMode.BUFFER)
-		{
-			PV.screen.swap();
-			PV.screen.refresh();
-		}
-		Draw.resetTarget();
 
 		if (_scene.visible) _scene.render();
-
-		if (PV.renderMode == RenderMode.BUFFER)
-		{
-			PV.screen.redraw();
-		}
 
 		// more timing stuff
 		t = Lib.getTimer();

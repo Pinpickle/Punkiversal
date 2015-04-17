@@ -516,8 +516,8 @@ class Draw
 	 */
 	public static function text(text:String, ?x:Float = 0, ?y:Float = 0, ?options:TextOptions = null)
 	{
-		var textGfx:Text = new Text(text, x, y, 0, 0, options);
-		textGfx.render(_target, PV.zero, _camera);
+		//var textGfx:Text = new Text(text, x, y, 0, 0, options);
+		//textGfx.render(_target, PV.zero, _camera);
 	}
 
 	// Drawing information.
