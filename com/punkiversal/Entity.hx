@@ -4,8 +4,6 @@ import flash.display.BitmapData;
 import flash.display.DisplayObject;
 import flash.geom.Point;
 import flash.geom.Rectangle;
-import com.punkiversal.graphics.Image;
-import com.punkiversal.graphics.Graphiclist;
 import com.punkiversal.ds.Either;
 
 /**

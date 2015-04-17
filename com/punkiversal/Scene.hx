@@ -1,6 +1,5 @@
 package com.punkiversal;
 
-import com.punkiversal.graphics.atlas.AtlasData;
 import flash.display.DisplayObject;
 import flash.display.Sprite;
 import flash.geom.Point;
@@ -125,9 +124,6 @@ class Scene extends Tweener
 	 */
 	public function render()
 	{
-		if (PV.renderMode == RenderMode.HARDWARE)
-			AtlasData.startScene(this);
-
 		// render the entities in order of depth
 		for (layer in _layerList)
 		{
@@ -137,9 +133,6 @@ class Scene extends Tweener
 				if (e.visible) e.render();
 			}
 		}
-
-		if (PV.renderMode == RenderMode.HARDWARE)
-			AtlasData.active = null; // forces the last active atlas to flush
 	}
 
 	/**
@@ -1123,7 +1116,7 @@ class Scene extends Tweener
 					sprite.setChildIndex(layerSprite, 0);
 				} else {
 					var layerBelow:Sprite = _layerSprites.get(_layerSpritesList[pos - 1]);
-					sprite.setChildIndex(layerSprite, sprite.getChildIndex(layerBelow) + 1);
+					sprite.setChildIndex(layerSprite, sprite.getChildIndex(layerBelow) + 1	);
 				}
 			}
 

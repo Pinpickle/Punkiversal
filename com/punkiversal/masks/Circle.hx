@@ -1,6 +1,5 @@
 package com.punkiversal.masks;
 
-import com.punkiversal.Graphic;
 import com.punkiversal.Mask;
 import com.punkiversal.masks.Grid;
 import com.punkiversal.masks.SlopedGrid;

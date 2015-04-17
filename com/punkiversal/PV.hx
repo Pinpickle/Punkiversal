@@ -16,7 +16,6 @@ import flash.media.SoundTransform;
 import flash.system.System;
 import flash.utils.ByteArray;
 
-import com.punkiversal.Graphic;
 import com.punkiversal.Tween;
 import com.punkiversal.debug.Console;
 import com.punkiversal.tweens.misc.Alarm;

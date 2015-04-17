@@ -12,8 +12,6 @@ import flash.geom.Rectangle;
 import flash.Lib;
 import haxe.EnumFlags;
 import haxe.Timer;
-import com.punkiversal.graphics.atlas.AtlasData;
-import com.punkiversal.utils.Draw;
 import com.punkiversal.utils.Input;
 import com.punkiversal.Tweener;
 
@@ -234,7 +232,6 @@ class Engine extends Sprite
 		checkScene();
 
 		// game start
-		Draw.init();
 		init();
 
 		// start game loop
