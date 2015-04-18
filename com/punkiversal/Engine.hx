@@ -185,7 +185,7 @@ class Engine extends Sprite
 			_scene.focusLost();
 		});
 
-#if !(flash || html5)
+#if (!(flash || html5) && openfl_legacy)
 		flash.display.Stage.shouldRotateInterface = function(orientation:Int):Bool {
 			if (PV.indexOf(PV.orientations, orientation) == -1) return false;
 			var tmp = PV.height;

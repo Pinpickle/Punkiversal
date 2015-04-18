@@ -1217,8 +1217,11 @@ class PV
 	public static function resizeStage (width:Int, height:Int)
 	{
 		#if (cpp || neko)
-		PV.stage.resize(width, height);
-		resize(width, height);
+			#if openfl_legacy
+			PV.stage.resize(width, height);
+			#else
+			openfl.Lib.application.window.resize(width, height);
+			#end
 		#elseif debug
 		trace("Can only resize the stage in cpp or neko targets.");
 		#end
