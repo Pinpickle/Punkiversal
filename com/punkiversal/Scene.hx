@@ -114,7 +114,7 @@ class Scene extends Tweener
 	 */
 	private function layerSort(a:Int, b:Int):Int
 	{
-		return b - a;
+		return a - b;
 	}
 
 	/**
@@ -1079,6 +1079,7 @@ class Scene extends Tweener
 	{
 		var list = _layers.get(e._layer);
 		list.remove(e);
+		removeEntityGraphic(e);
 		if (list.length == 0)
 		{
 			_layerList.remove(e._layer);
@@ -1100,7 +1101,7 @@ class Scene extends Tweener
 		}
 	}
 
-	private function addGraphic(g:DisplayObject, layer:Int) {
+	public function addGraphic(g:DisplayObject, layer:Int) {
 		var layerSprite:Sprite;
 		if (_layerSprites.exists(layer)) {
 			layerSprite = _layerSprites.get(layer);
@@ -1126,7 +1127,7 @@ class Scene extends Tweener
 		layerSprite.addChild(g);
 	}
 
-	private function removeGraphic(g:DisplayObject, layer:Int) {
+	public function removeGraphic(g:DisplayObject, layer:Int) {
 		if (_layerSprites.exists(layer)) {
 			var layerSprite = _layerSprites.get(layer);
 			layerSprite.removeChild(g);
