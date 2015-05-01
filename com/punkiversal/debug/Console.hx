@@ -61,6 +61,9 @@ class Console
 	{
 		// Console display objects.
 		_sprite = new Sprite();
+		_sprite.mouseEnabled = false;
+		_sprite.mouseChildren = false;
+		
 		var font = Assets.getFont("font/04B_03__.ttf");
 		if (font == null)
 		{

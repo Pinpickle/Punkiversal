@@ -55,6 +55,9 @@ class Engine extends Sprite
 	{
 		super();
 
+		mouseEnabled = true;
+		mouseChildren = false;
+
 		// global game properties
 		PV.bounds = new Rectangle(0, 0, width, height);
 		PV.assignedFrameRate = frameRate;
@@ -205,8 +208,8 @@ class Engine extends Sprite
 		// calculate scale from width/height values
 		PV.windowWidth = PV.stage.stageWidth;
 		PV.windowHeight = PV.stage.stageHeight;
-		PV.screen.scaleX = PV.stage.stageWidth / PV.width;
-		PV.screen.scaleY = PV.stage.stageHeight / PV.height;
+		//PV.screen.scaleX = PV.stage.stageWidth / PV.width;
+		//PV.screen.scaleY = PV.stage.stageHeight / PV.height;
 		PV.resize(PV.stage.stageWidth, PV.stage.stageHeight);
 	}
 

@@ -136,8 +136,8 @@ class Input
 	/**
 	 * X position of the mouse on the screen.
 	 */
-	public static var mouseX(get, never):Int;
-	private static function get_mouseX():Int
+	public static var mouseX(get, never):Float;
+	private static function get_mouseX():Float
 	{
 		return PV.screen.mouseX;
 	}
@@ -145,8 +145,8 @@ class Input
 	/**
 	 * Y position of the mouse on the screen.
 	 */
-	public static var mouseY(get, never):Int;
-	private static function get_mouseY():Int
+	public static var mouseY(get, never):Float;
+	private static function get_mouseY():Float
 	{
 		return PV.screen.mouseY;
 	}

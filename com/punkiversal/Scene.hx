@@ -1130,12 +1130,14 @@ class Scene extends Tweener
 	public function removeGraphic(g:DisplayObject, layer:Int) {
 		if (_layerSprites.exists(layer)) {
 			var layerSprite = _layerSprites.get(layer);
-			layerSprite.removeChild(g);
+			if (layerSprite.contains(g)) {
+				layerSprite.removeChild(g);
 
-			if (layerSprite.numChildren == 0) {
-				sprite.removeChild(layerSprite);
-				_layerSprites.remove(layer);
-				_layerSpritesList.remove(layer);
+				if (layerSprite.numChildren == 0) {
+					sprite.removeChild(layerSprite);
+					_layerSprites.remove(layer);
+					_layerSpritesList.remove(layer);
+				}
 			}
 		}
 	}

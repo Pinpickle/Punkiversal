@@ -564,7 +564,6 @@ class Entity extends Tweener
 		if ((_graphic != null) && (_scene != null)) {
 			_scene.addEntityGraphic(this);
 		}
-		PV.stage.addChild(_graphic);
 		return _graphic;
 	}
 

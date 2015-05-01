@@ -30,6 +30,8 @@ class Screen
 	{
 		width = PV.width;
 		height = PV.height;
+		PV.engine.scaleX = fullScaleX;
+		PV.engine.scaleY = fullScaleY;
 	}
 
 	@:dox(hide)
@@ -212,13 +214,13 @@ class Screen
 	 * X position of the mouse on the screen.
 	 */
 	public var mouseX(get, null):Int;
-	private function get_mouseX():Int { return Std.int(PV.stage.mouseX); }
+	private function get_mouseX():Int { return Std.int(PV.engine.mouseX); }
 
 	/**
 	 * Y position of the mouse on the screen.
 	 */
 	public var mouseY(get, null):Int;
-	private function get_mouseY():Int { return Std.int(PV.stage.mouseY); }
+	private function get_mouseY():Int { return Std.int(PV.engine.mouseY); }
 
 	/**
 	 * Captures the current screen as an Image object.
